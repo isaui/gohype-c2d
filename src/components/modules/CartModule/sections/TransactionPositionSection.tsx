@@ -1,5 +1,5 @@
 import Stack from "@/components/shared/Stack"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 
 type TransactionPositionSectionProps = {
@@ -9,7 +9,9 @@ type TransactionPositionSectionProps = {
 const TransactionPositionSection: React.FC<TransactionPositionSectionProps> = ({
     currentActiveSection, 
     sections}) => {
+
     const activeIndex = sections.findIndex(section => section === currentActiveSection);
+
     return  <Card className={cn("w-[380px]", "h-fit")}>
     <CardHeader>
       <CardTitle className="text-lg">{`Let's Get Your Ticket!`}</CardTitle>

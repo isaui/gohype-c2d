@@ -7,7 +7,6 @@ import RefundPolicySection from "./sections/RefundPolicySection"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import Image from 'next/image'
 import { Separator } from "@/components/ui/separator"
-import { Label } from "@/components/ui/label"
 
 const BuyTicketModule = () => {
     return <div className="flex flex-col w-screen min-h-screen bg-background items-center pt-16 pb-10">

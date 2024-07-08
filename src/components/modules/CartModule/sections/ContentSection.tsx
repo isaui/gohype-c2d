@@ -1,3 +1,4 @@
+import AuthDialog from "@/components/shared/AuthDialog"
 import SelectTicketQuantitySection from "./SelectTicketQuantitySection"
 import TransactionPositionSection from "./TransactionPositionSection"
 import { Card, CardContent } from "@/components/ui/card"
@@ -5,6 +6,7 @@ import { paymentSections } from "@/utils/payment-section"
 
 const ContentSection = () => {
     return <div className="flex w-full max-w-7xl md:gap-x-8 ">
+        <AuthDialog isInitialOpen={true}/>
         <div className="hidden md:flex">
         <TransactionPositionSection
             currentActiveSection={paymentSections[0]}

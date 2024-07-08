@@ -1,5 +1,5 @@
 const ImagesSection = () => {
-    return <div className="flex flex-col w-full mx-auto mb-4 min-h-28 px-4">
+    return <div className="flex flex-col w-full mb-4 min-h-28">
         <div className="grid grid-cols-2 w-full gap-1">
             <div>
                 <img src="/perosotan-pink.svg" className="w-full h-auto bg-cover" alt="" />

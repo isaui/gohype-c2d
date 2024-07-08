@@ -1,0 +1,1 @@
+export const paymentSections = ['Select Ticket Quantity', 'Fill In Your Details', 'Complete Payment']

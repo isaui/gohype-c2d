@@ -19,13 +19,18 @@ const config = {
     },
     extend: {
       colors: {
-        primary: '#007FFF', // Blue for background
+        primary: '#007FFF',
         "primary-2": "#F3F9FF",
         "background": "#F8F8F8",
-        secondary: '#606060'
+        secondary: '#606060',
+        "yellow-0": '#FAF8E8',
+        "blue-0": '#DDE8FF',
+        "indigo-0": '#AEBBFF',
+        "gray-0":"#BFBFBF",
+        "gray-1":"#F2F2F2"
       },
       textColor: {
-        primary: '#282828', // Dark color for text
+        primary: '#282828',
         secondary: '#606060',
         tertiary: '#FF7A00',
       },

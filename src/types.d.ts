@@ -9,3 +9,15 @@ export type TicketsGroup = {
     title: string
     tickets: Ticket[]
 }
+
+export type TicketTimeInformation = {
+    value: string
+    startTime: string,
+    endTime: string
+}
+
+export type TicketData = {
+    label: string;
+    price: string;
+    count: number;
+}

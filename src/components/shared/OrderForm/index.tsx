@@ -42,9 +42,9 @@ const formSchema = z.object({
       name: z.string().min(2, {
         message: "Name must be at least 2 characters.",
       }),
-      age: z.number().min(1, {
+      age: z.preprocess((val) => Number(val), z.number().min(1, {
         message: "Age must be at least 1 year.",
-      }),
+      })),
       gender: z.enum(["Male", "Female"]),
     })
   ),
@@ -74,9 +74,23 @@ export default function OrderForm() {
   })
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data)
-  }
+    console.log(data); // Lakukan sesuatu dengan data jika diperlukan
+    // Buat elemen <a> baru
+    const newLink = document.createElement('a');
+    newLink.href = '/payment';
+    newLink.textContent = '';
+    newLink.style.display = 'none';
 
+    // Tambahkan elemen <a> ke dalam DOM
+    document.body.appendChild(newLink);
+
+    // Klik elemen <a> secara otomatis
+    if (newLink) {
+      newLink.click();
+    }
+    document.body.removeChild(newLink);
+
+  };
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="p-0 space-y-1  w-full">
@@ -270,7 +284,7 @@ export default function OrderForm() {
                         </div>
                     </div>
           <div className="grid md:flex mt-1">
-        <a href="/payment"><Button className=" bg-primary text-white" type="submit">Proceed to Payment</Button></a>
+          <Button className="bg-primary ml-2">Proceed to Payment</Button>
         </div>
         </div>
         

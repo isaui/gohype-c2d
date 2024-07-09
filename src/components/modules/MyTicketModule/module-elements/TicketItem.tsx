@@ -43,15 +43,17 @@ export const TicketItem: React.FC<TicketItemProps> = ({
   const validDate = new Date(validDateStr);
 
   return (
-    <div className="drop-shadow-md p-6 rounded-2xl bg-white border border-[#F3F3F3] flex flex-col md:flex-row gap-4">
+    <div className="drop-shadow-md p-2 sm:p-6 rounded-lg sm:rounded-2xl bg-white border border-[#F3F3F3] flex flex-col md:flex-row gap-4">
       <div className="w-full flex flex-col gap-3">
         <div className="flex flex-col">
-          <span className="text-sm text-[#606060]">ID: #{id}</span>
-          <h2 className="text-xl font-semibold">{title}</h2>
-          <h3 className="text-[#606060]">{variant}</h3>
+          <span className="text-sm hidden sm:block text-[#606060]">
+            ID: #{id}
+          </span>
+          <h2 className="text-base sm:text-xl font-semibold">{title}</h2>
+          <h3 className="text-sm sm:text-base text-[#606060]">{variant}</h3>
         </div>
         {isCheckedIn && checkInDate && checkOutDate ? (
-          <div className="font-semibold text-sm flex flex-col gap-1 bg-[#FFFAF1] border border-[#F0E3CD] p-3">
+          <div className="font-semibold text-xs sm:text-sm flex flex-col gap-1 bg-[#FFFAF1] border border-[#F0E3CD] p-3">
             <span className="flex gap-1 flex-col sm:flex-row">
               <span className="whitespace-nowrap">First time checked in: </span>
               <span className="font-bold text-[#FF7A00]">
@@ -86,7 +88,7 @@ export const TicketItem: React.FC<TicketItemProps> = ({
               <DialogTitle>Tickets</DialogTitle>
               <DialogDescription>ID: #{id} </DialogDescription>
             </DialogHeader>
-            <div className="aspect-square w-full max-w-64 mx-auto relative">
+            <div className="aspect-square w-2/3 max-w-64 mx-auto relative">
               <Image
                 alt={`Ticket-${id}`}
                 src={qrCodeImageUrl}
@@ -96,8 +98,12 @@ export const TicketItem: React.FC<TicketItemProps> = ({
             </div>
             <DialogFooter>
               <div className="flex flex-col w-full items-center">
-                <span className="text-xl font-semibold">{title}</span>
-                <span className="text-[#606060]">{variant}</span>{' '}
+                <span className="text-base sm:text-lg md:text-xl font-semibold text-center">
+                  {title}
+                </span>
+                <span className="text-sm sm:text-base text-[#606060] text-center">
+                  {variant}
+                </span>{' '}
               </div>
             </DialogFooter>
           </DialogContent>

@@ -14,10 +14,10 @@ const MyTicketModule: React.FC<MyTicketModuleProps> = ({
 
   return (
     <div className="flex items-center container p-0 md:p-4 justify-center min-h-screen">
-      <div className="flex flex-col p-8 gap-7 max-w-screen-md bg-white md:rounded-xl border border-[#E9E9E9]">
-        <h1 className="font-semibold text-2xl">My Tickets</h1>
+      <div className="flex flex-col p-4 sm:p-8 gap-4 sm:gap-6 md:gap-7 max-w-screen-md bg-white md:rounded-xl border border-[#E9E9E9]">
+        <h1 className="font-semibold text-xl sm:text-2xl">My Tickets</h1>
         <Navigation history={history} />
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-4 sm:gap-6 md:gap-8">
           {TICKET_ITEMS.map((ticket) =>
             history ? (
               <TicketHistoryItem {...ticket} key={ticket.id} />

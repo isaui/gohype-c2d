@@ -2,7 +2,6 @@ import React from 'react';
 import { TicketItemProps } from '../interface';
 import { QrCode } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { MONTH_NAMES } from '../constant';
 import Link from 'next/link';
 import {
   Dialog,
@@ -14,14 +13,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import Image from 'next/image';
-
-const formatTime = (time: string) => {
-  const date = new Date(time);
-
-  return `${String(date.getUTCHours()).padStart(2, '0')}:${String(
-    date.getUTCMinutes(),
-  ).padStart(2, '0')} WIB`;
-};
+import { formatTime } from '@/utils/formatTime';
+import { MONTH_NAMES } from '@/constant';
 
 export const TicketItem: React.FC<TicketItemProps> = ({
   id,

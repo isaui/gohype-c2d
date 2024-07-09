@@ -138,7 +138,7 @@ const SelectTicketQuantitySection = () => {
                         </div>
                     </div>
                     <div>
-                        <Button className="bg-primary ml-2">Order Now</Button>
+                        <a href="/checkout"><Button className="bg-primary ml-2">Order Now</Button></a>
                     </div>
                 </div>
                

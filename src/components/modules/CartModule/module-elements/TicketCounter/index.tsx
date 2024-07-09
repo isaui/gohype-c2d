@@ -1,5 +1,5 @@
 import React from "react";
-import { TicketData } from "@/types";  // sesuaikan path ini dengan path file tipe data
+import { TicketData } from "@/types"; 
 
 interface TicketCounterProps {
     ticket: TicketData;

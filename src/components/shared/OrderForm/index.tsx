@@ -270,7 +270,7 @@ export default function OrderForm() {
                         </div>
                     </div>
           <div className="grid md:flex mt-1">
-        <Button className=" bg-primary text-white" type="submit">Proceed to Payment</Button>
+        <a href="/payment"><Button className=" bg-primary text-white" type="submit">Proceed to Payment</Button></a>
         </div>
         </div>
         

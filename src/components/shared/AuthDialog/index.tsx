@@ -1,12 +1,10 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { useState } from "react"
-import Stack from "../Stack"
 
 type AuthDialogProps = {
     isInitialOpen: boolean
@@ -46,7 +44,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({isInitialOpen}) => {
               </div>
             </div>
             <div className="flex w-full justify-center text-center">
-                <Label className=" text-secondary">By registering, you agree to the applicable Terms & Conditions and you have read our Privacy Policy.</Label>
+                <Label className=" text-secondary text-sm">By registering, you agree to the applicable Terms & Conditions and you have read our Privacy Policy.</Label>
             </div>
           </div>
         </DialogContent>

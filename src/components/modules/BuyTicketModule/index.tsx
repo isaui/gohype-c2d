@@ -7,16 +7,16 @@ import RefundPolicySection from "./sections/RefundPolicySection"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import Image from 'next/image'
 import { Separator } from "@/components/ui/separator"
+import { Button } from "@/components/ui/button"
 
 const BuyTicketModule = () => {
     return <div className="flex flex-col w-screen min-h-screen bg-background items-center pt-16 pb-10">
         <Navbar/>
         <ImagesSection/>
         <div className="flex flex-row-reverse gap-x-4 md:gap-x-8 w-full max-w-7xl">
-        <div className="w-[28rem]">
+        <div className="w-[28rem] hidden md:flex">
         <Card className="h-fit w-full">
             <CardHeader>
-                <CardDescription>
                     <div className="flex items-center space-x-2">
                         <Image 
                         src={"/ticket-icon.svg"}
@@ -24,16 +24,18 @@ const BuyTicketModule = () => {
                         width={1}
                         height={1}
                         alt="ticket icon"/>
-                        <p className=" text-secondary text-base">
+                        <p className=" text-secondary text-sm">
                             {`You haven't selected a ticket yet. Please choose one first.`}</p>
                     </div>
                     <Separator className="mt-6"/>
-                </CardDescription>
             </CardHeader>
             <CardContent>
                <div className="flex w-full justify-between items-center">
                     <p className="text-base text-secondary">Prices start from</p>
                     <p className=" text-xl text-tertiary font-bold ml-2">IDR 180.000</p>
+               </div>
+               <div className="grid w-full mt-4">
+                    <Button className=" bg-primary text-white hover:bg-blue-400">View Packages</Button>
                </div>
             </CardContent>
         </Card>

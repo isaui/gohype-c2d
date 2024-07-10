@@ -2,11 +2,11 @@ import Stack from "@/components/shared/Stack"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 
-type TransactionPositionSectionProps = {
+type TransactionPositionProps = {
     currentActiveSection: string,
     sections: string[]
 }
-const TransactionPositionSection: React.FC<TransactionPositionSectionProps> = ({
+const TransactionPositionCard: React.FC<TransactionPositionProps> = ({
     currentActiveSection, 
     sections}) => {
 
@@ -37,4 +37,4 @@ const TransactionPositionSection: React.FC<TransactionPositionSectionProps> = ({
     </CardContent>
   </Card>
 }
-export default TransactionPositionSection
+export default TransactionPositionCard

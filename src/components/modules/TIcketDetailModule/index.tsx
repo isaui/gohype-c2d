@@ -6,6 +6,7 @@ import { TICKET_DETAIL } from './constant';
 import { MONTH_NAMES } from '@/constant';
 import { PersonListItem } from './module-elements/PersonListItem';
 import { toTitleCase } from '@/utils/toTitleCase';
+import { TicketNavbar } from '@/components/shared/Navbar';
 
 const TicketDetailModule: React.FC<TicketDetailModuleProps> = ({ id }) => {
   const ticketDetail = TICKET_DETAIL;
@@ -18,8 +19,14 @@ const TicketDetailModule: React.FC<TicketDetailModuleProps> = ({ id }) => {
   const validDate = new Date(ticketDetail.validDate);
 
   return (
-    <div className="flex items-center p-2 container max-w-screen-lg mx-auto justify-center min-h-screen">
-      <div className="flex flex-col gap-4 p-0 md:p-4 w-full">
+    <div className="flex flex-col items-center md:px-2 md:pt-2 pb-12 container max-w-screen-lg mx-auto min-h-screen">
+      <div className="md:hidden">
+        <TicketNavbar variant="SCROLL"/>
+      </div>
+      <div className="hidden md:flex">
+        <TicketNavbar variant="FIXED"/>
+      </div>
+      <div className="flex flex-col mt-2 gap-4 p-0 md:p-4 w-full">
         <BackButton />
         <div className="flex flex-col p-4 sm:p-8 gap-4 sm:gap-6 md:gap-7 w-full bg-white md:rounded-xl border border-[#E9E9E9]">
           <div className="flex md:items-center flex-col md:flex-row justify-between">

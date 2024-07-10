@@ -14,7 +14,7 @@ const BuyTicketModule = () => {
         <Navbar/>
         <ImagesSection/>
         <div className="flex flex-row-reverse gap-x-4 md:gap-x-8 w-full max-w-7xl">
-        <div className="w-[28rem]">
+        <div className="w-[28rem] hidden md:flex">
         <Card className="h-fit w-full">
             <CardHeader>
                     <div className="flex items-center space-x-2">

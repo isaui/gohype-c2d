@@ -18,18 +18,27 @@ const Navbar: React.FC<NavbarProps> = ({ variant = 'FIXED' }) => {
       <div className="ml-auto md:hidden">
       <Sheet>
       <SheetTrigger><Menu /></SheetTrigger>
-      <SheetContent side={"top"}>
-        <SheetHeader>
+      <SheetContent className=' pb-4' side={"top"}>
+        <SheetHeader className=''>
          
-          <SheetDescription>
-          <div className="ml-auto flex flex-col items-center text-center space-y-4 font-semibold text-primary">
-            <Link href={'/'}>Home</Link>
-            <Link href={'/buy-ticket'}>Buy Ticket</Link>
-            <Link href={'/contact-us'}>Contact Us</Link>
+          <SheetDescription className=''>
+
+          <div className="flex flex-col  space-y-4 font-semibold text-primary -mt-3">
+          <img src="/logo.svg" className="w-16 md:w-24 h-auto"></img>
+            <Link className=' w-fit xtext-lg' href={'/'}>Home</Link>
+            <Link className=' w-fit xtext-lg' href={'/buy-ticket'}>Buy Ticket</Link>
+            <Link className=' w-fit xtext-lg' href={'/contact-us'}>Contact Us</Link>
+            <div className='grid grid-cols-2 gap-4'>
+            <Link href={"/sign-in"} className='grid'>
             <Button variant={'outline'} className="border border-primary">
               Sign In
-            </Button>
+            </Button></Link>
+            <Link href="/register" className="grid">
             <Button className="bg-primary">Register</Button>
+            </Link>
+            
+            </div>
+            
           </div>
           </SheetDescription>
         </SheetHeader>
@@ -40,10 +49,15 @@ const Navbar: React.FC<NavbarProps> = ({ variant = 'FIXED' }) => {
         <Link href={'/'}>Home</Link>
         <Link href={'/buy-ticket'}>Buy Ticket</Link>
         <Link href={'/contact-us'}>Contact Us</Link>
+        <Link href="/sign-in">
         <Button variant={'outline'} className="border border-primary">
           Sign In
         </Button>
-        <Button className="bg-primary">Register</Button>
+        </Link>
+       <Link href={"/register"}>
+       <Button className="bg-primary">Register</Button>
+       </Link>
+        
       </div>
     </div>
   );
@@ -61,15 +75,16 @@ export const AuthNavbar: React.FC<NavbarProps> = ({variant}) => {
       <div className="ml-auto md:hidden">
       <Sheet>
       <SheetTrigger><Menu /></SheetTrigger>
-      <SheetContent side={"top"}>
+      <SheetContent className='pb-4' side={"top"}>
         <SheetHeader>
          
           <SheetDescription>
-          <div className="ml-auto flex flex-col items-center text-center space-y-4 font-semibold text-primary">
-            <Link href={'/'}>Home</Link>
-            <Link href={'/buy-ticket'}>Buy Ticket</Link>
-            <Link href={'/contact-us'}>Contact Us</Link>
-            <Link href={'/my-tickets'}>
+          <div className="flex flex-col -mt-3 space-y-4 font-semibold text-primary ">
+          <img src="/logo.svg" className="w-16 md:w-24 h-auto"></img>
+            <Link className='w-fit' href={'/'}>Home</Link>
+            <Link className='w-fit' href={'/buy-ticket'}>Buy Ticket</Link>
+            <Link className='w-fit' href={'/contact-us'}>Contact Us</Link>
+            <Link className='grid' href={'/my-tickets'}>
         <Button variant={"default"} className=" bg-primary border-0">My Tickets</Button></Link>
           </div>
           </SheetDescription>

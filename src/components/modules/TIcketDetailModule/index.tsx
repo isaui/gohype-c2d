@@ -6,7 +6,7 @@ import { TICKET_DETAIL } from './constant';
 import { MONTH_NAMES } from '@/constant';
 import { PersonListItem } from './module-elements/PersonListItem';
 import { toTitleCase } from '@/utils/toTitleCase';
-import { TicketNavbar } from '@/components/shared/Navbar';
+import { AuthNavbar } from '@/components/shared/Navbar';
 
 const TicketDetailModule: React.FC<TicketDetailModuleProps> = ({ id }) => {
   const ticketDetail = TICKET_DETAIL;
@@ -21,10 +21,10 @@ const TicketDetailModule: React.FC<TicketDetailModuleProps> = ({ id }) => {
   return (
     <div className="flex flex-col items-center md:px-2 md:pt-2 pb-12 container max-w-screen-lg mx-auto min-h-screen">
       <div className="md:hidden">
-        <TicketNavbar variant="SCROLL"/>
+        <AuthNavbar variant="SCROLL"/>
       </div>
       <div className="hidden md:flex">
-        <TicketNavbar variant="FIXED"/>
+        <AuthNavbar variant="FIXED"/>
       </div>
       <div className="flex flex-col mt-2 gap-4 p-0 md:p-4 w-full">
         <BackButton />

@@ -49,7 +49,7 @@ const Navbar: React.FC<NavbarProps> = ({ variant = 'FIXED' }) => {
   );
 };
 
-export const TicketNavbar: React.FC<NavbarProps> = ({variant}) => {
+export const AuthNavbar: React.FC<NavbarProps> = ({variant}) => {
   return (
     <div
       className={`${variant == 'FIXED' ? 'fixed' : ''} 

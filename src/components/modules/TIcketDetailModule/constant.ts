@@ -1,7 +1,7 @@
 export const TICKET_DETAIL = {
   id: 43545667,
   title: '1-Day Play Ticket on Weekdays',
-  validDate: '2024-07-24T23:59:59Z',
+  validDate: '2024-07-10T23:59:59Z',
   isCheckedIn: true,
   checkInDate: '2024-07-24T12:00:00Z',
   duration: 60,

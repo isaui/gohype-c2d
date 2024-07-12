@@ -11,7 +11,7 @@ import { AuthNavbar } from '@/components/shared/Navbar';
 const TicketDetailModule: React.FC<TicketDetailModuleProps> = ({ id }) => {
   const ticketDetail = TICKET_DETAIL;
 
-  let checkOutDate;
+  let checkOutDate: Date = null;
   if (ticketDetail.checkInDate) {
     checkOutDate = new Date(ticketDetail.checkInDate);
     checkOutDate.setMinutes(checkOutDate.getMinutes() + ticketDetail.duration);
@@ -19,12 +19,12 @@ const TicketDetailModule: React.FC<TicketDetailModuleProps> = ({ id }) => {
   const validDate = new Date(ticketDetail.validDate);
 
   return (
-    <div className="flex flex-col items-center md:px-2 md:pt-2 pb-12 container max-w-screen-lg mx-auto min-h-screen">
+    <div className="flex flex-col items-center px-2 md:px-2 md:pt-2 pb-12 container max-w-screen-lg mx-auto min-h-screen">
       <div className="md:hidden">
-        <AuthNavbar variant="SCROLL"/>
+        <AuthNavbar variant="SCROLL" />
       </div>
       <div className="hidden md:flex">
-        <AuthNavbar variant="FIXED"/>
+        <AuthNavbar variant="FIXED" />
       </div>
       <div className="flex flex-col mt-2 gap-4 p-0 md:p-4 w-full">
         <BackButton />
@@ -66,7 +66,12 @@ const TicketDetailModule: React.FC<TicketDetailModuleProps> = ({ id }) => {
             </span>
           )}
           <div className="flex flex-col gap-2">
-            <h2 className="font-semibold text-lg">Children</h2>
+            <h2 className="font-semibold text-lg">
+              Children{' '}
+              <span className="text-[#606060]">
+                ({ticketDetail.children.length})
+              </span>
+            </h2>
             <div className="flex flex-col gap-2">
               {ticketDetail.children.map((child, index) => (
                 <PersonListItem
@@ -76,12 +81,24 @@ const TicketDetailModule: React.FC<TicketDetailModuleProps> = ({ id }) => {
                     child.age
                   } years old`}
                   status={child.status}
+                  expiresAt={
+                    checkOutDate &&
+                    `${formatTime(checkOutDate.toISOString())} (
+                  ${ticketDetail.duration} minutes remaining)`
+                  }
+                  validDate={validDate}
+                  isWeekend={ticketDetail.isWeekend}
                 />
               ))}
             </div>
           </div>
           <div className="flex flex-col gap-2">
-            <h2 className="font-semibold text-lg">Companions</h2>
+            <h2 className="font-semibold text-lg">
+              Companions{' '}
+              <span className="text-[#606060]">
+                ({ticketDetail.companions.length})
+              </span>
+            </h2>
             <div className="flex flex-col gap-2">
               {ticketDetail.companions.map((companion, index) => (
                 <PersonListItem
@@ -89,6 +106,13 @@ const TicketDetailModule: React.FC<TicketDetailModuleProps> = ({ id }) => {
                   name={companion.name}
                   description={`${companion.identityType} ${companion.identityValue}`}
                   status={companion.status}
+                  expiresAt={
+                    checkOutDate &&
+                    `${formatTime(checkOutDate.toISOString())} (
+                    ${ticketDetail.duration} minutes remaining)`
+                  }
+                  validDate={validDate}
+                  isWeekend={ticketDetail.isWeekend}
                 />
               ))}
             </div>

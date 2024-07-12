@@ -6,4 +6,7 @@ export interface PersonListItemProps {
   name: string;
   description: string;
   status: 'CHECKED_IN' | 'NOT_CHECKED_IN' | 'CHECKED_OUT';
+  expiresAt?: string;
+  validDate: Date;
+  isWeekend: boolean;
 }

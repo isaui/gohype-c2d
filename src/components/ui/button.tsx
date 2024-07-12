@@ -9,8 +9,14 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary text-stone-50 shadow hover:bg-primary/90 rounded-md',
-        destructive: 'bg-red-500 text-stone-50 shadow-sm hover:bg-red-500/90 rounded-md',
+        default:
+          'bg-primary text-stone-50 shadow hover:bg-primary/90 rounded-md',
+        danger:
+          'bg-[#FFE3E3] text-[#E40000] font-semibold hover:bg-[#E4000040] border border-[#E40000]',
+        success:
+          'bg-[#E8FFE8] text-[#008000] font-semibold hover:bg-[#E8FFE880] border border-[#008000]',
+        destructive:
+          'bg-red-500 text-stone-50 shadow-sm hover:bg-red-500/90 rounded-md',
         outline:
           'border border-stone-200 text-primary rounded-md xbg-black shadow-sm xhover:bg-black/80 hover:text-primary',
         secondary:

@@ -19,7 +19,7 @@ const TicketDetailModule: React.FC<TicketDetailModuleProps> = ({ id }) => {
   const validDate = new Date(ticketDetail.validDate);
 
   return (
-    <div className="flex flex-col items-center md:px-2 md:pt-2 pb-12 container max-w-screen-lg mx-auto min-h-screen">
+    <div className="flex flex-col items-center px-2 md:px-2 md:pt-2 pb-12 container max-w-screen-lg mx-auto min-h-screen">
       <div className="md:hidden">
         <TicketNavbar variant="SCROLL" />
       </div>
@@ -86,6 +86,8 @@ const TicketDetailModule: React.FC<TicketDetailModuleProps> = ({ id }) => {
                     `${formatTime(checkOutDate.toISOString())} (
                   ${ticketDetail.duration} minutes remaining)`
                   }
+                  validDate={validDate}
+                  isWeekend={ticketDetail.isWeekend}
                 />
               ))}
             </div>
@@ -109,6 +111,8 @@ const TicketDetailModule: React.FC<TicketDetailModuleProps> = ({ id }) => {
                     `${formatTime(checkOutDate.toISOString())} (
                     ${ticketDetail.duration} minutes remaining)`
                   }
+                  validDate={validDate}
+                  isWeekend={ticketDetail.isWeekend}
                 />
               ))}
             </div>

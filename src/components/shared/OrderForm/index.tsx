@@ -20,6 +20,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Label } from "@/components/ui/label"
 
 
+
 // Definisikan skema validasi menggunakan zod
 const formSchema = z.object({
   companions: z.array(
@@ -123,7 +124,7 @@ export default function OrderForm() {
             <div className="flex gap-4">
             <FormField
                 control={control}
-                name={`companions.${index}.idType`}
+                name={`companions.${index}.idType`        }
                 render={({ field }) => (
                 <FormItem style={{ width: '30%' }}>
                     <FormControl>

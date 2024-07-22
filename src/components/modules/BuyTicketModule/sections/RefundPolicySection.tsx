@@ -1,5 +1,11 @@
 import Image from 'next/image'
-const RefundPolicySection = () => {
+
+type RefundPolicySectionProps = {
+    title: string
+    description: string
+}
+
+const RefundPolicySection:React.FC<RefundPolicySectionProps> = ({title, description}) => {
     return <div className="px-4 mt-4">
         <h1 className=" text-2xl font-bold text-primary mb-4">Refund Policy</h1>
         <div className="flex items-center space-x-2">
@@ -13,8 +19,8 @@ const RefundPolicySection = () => {
                 />
             </div>
             <div className='flex flex-col  justify-start'>
-                <h1 className=" text-base font-bold text-primary">Non Refundable</h1>
-                <p className=' text-secondary'>You cannot request a refund for this voucher.</p>
+                <h1 className=" text-base font-bold text-primary">{title}</h1>
+                <p className=' text-secondary'>{description}</p>
             </div>
         </div>
     </div>

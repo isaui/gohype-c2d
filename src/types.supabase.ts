@@ -35,547 +35,41 @@ export type Database = {
   }
   public: {
     Tables: {
-      admin: {
+      order: {
         Row: {
-          admin_name: string | null
-          created_at: string
-          id: string
-        }
-        Insert: {
-          admin_name?: string | null
-          created_at?: string
-          id?: string
-        }
-        Update: {
-          admin_name?: string | null
-          created_at?: string
-          id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "admin_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "user"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      booking_ticket: {
-        Row: {
-          afternoon_weekdays_discount_type:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          afternoon_weekdays_discount_unit: number | null
-          afternoon_weekdays_price: number | null
-          afternoon_weekend_discount_type:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          afternoon_weekend_discount_unit: number | null
-          afternoon_weekend_price: number | null
-          created_at: string
-          evening_weekdays_discount_type:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          evening_weekdays_discount_unit: number | null
-          evening_weekdays_price: number | null
-          evening_weekend_discount_type:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          evening_weekend_discount_unit: number | null
-          evening_weekend_price: number | null
-          extra_price_child: number | null
-          extra_price_companion: number | null
-          free_children: number | null
-          free_companions: number | null
-          id: number
-          morning_weekdays_discount_type:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          morning_weekdays_discount_unit: number | null
-          morning_weekdays_price: number | null
-          morning_weekend_discount_type:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          morning_weekend_discount_unit: number | null
-          morning_weekend_price: number | null
-        }
-        Insert: {
-          afternoon_weekdays_discount_type?:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          afternoon_weekdays_discount_unit?: number | null
-          afternoon_weekdays_price?: number | null
-          afternoon_weekend_discount_type?:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          afternoon_weekend_discount_unit?: number | null
-          afternoon_weekend_price?: number | null
-          created_at?: string
-          evening_weekdays_discount_type?:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          evening_weekdays_discount_unit?: number | null
-          evening_weekdays_price?: number | null
-          evening_weekend_discount_type?:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          evening_weekend_discount_unit?: number | null
-          evening_weekend_price?: number | null
-          extra_price_child?: number | null
-          extra_price_companion?: number | null
-          free_children?: number | null
-          free_companions?: number | null
-          id?: number
-          morning_weekdays_discount_type?:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          morning_weekdays_discount_unit?: number | null
-          morning_weekdays_price?: number | null
-          morning_weekend_discount_type?:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          morning_weekend_discount_unit?: number | null
-          morning_weekend_price?: number | null
-        }
-        Update: {
-          afternoon_weekdays_discount_type?:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          afternoon_weekdays_discount_unit?: number | null
-          afternoon_weekdays_price?: number | null
-          afternoon_weekend_discount_type?:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          afternoon_weekend_discount_unit?: number | null
-          afternoon_weekend_price?: number | null
-          created_at?: string
-          evening_weekdays_discount_type?:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          evening_weekdays_discount_unit?: number | null
-          evening_weekdays_price?: number | null
-          evening_weekend_discount_type?:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          evening_weekend_discount_unit?: number | null
-          evening_weekend_price?: number | null
-          extra_price_child?: number | null
-          extra_price_companion?: number | null
-          free_children?: number | null
-          free_companions?: number | null
-          id?: number
-          morning_weekdays_discount_type?:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          morning_weekdays_discount_unit?: number | null
-          morning_weekdays_price?: number | null
-          morning_weekend_discount_type?:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          morning_weekend_discount_unit?: number | null
-          morning_weekend_price?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "booking_ticket_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "ticket"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      branch: {
-        Row: {
-          address: string
-          branch_description: string | null
-          branch_images: string[] | null
-          branch_name: string
-          created_at: string
-          id: string
-          map_url: string | null
-          refund_policy_content: string
-          refund_policy_title: string
-          weekday_open_time_label: string | null
-          weekend_open_time_label: string | null
-        }
-        Insert: {
-          address?: string
-          branch_description?: string | null
-          branch_images?: string[] | null
-          branch_name?: string
-          created_at?: string
-          id?: string
-          map_url?: string | null
-          refund_policy_content?: string
-          refund_policy_title?: string
-          weekday_open_time_label?: string | null
-          weekend_open_time_label?: string | null
-        }
-        Update: {
-          address?: string
-          branch_description?: string | null
-          branch_images?: string[] | null
-          branch_name?: string
-          created_at?: string
-          id?: string
-          map_url?: string | null
-          refund_policy_content?: string
-          refund_policy_title?: string
-          weekday_open_time_label?: string | null
-          weekend_open_time_label?: string | null
-        }
-        Relationships: []
-      }
-      branch_admin: {
-        Row: {
-          admin_id: string
-          branch_id: string
-          created_at: string
-        }
-        Insert: {
-          admin_id?: string
-          branch_id?: string
-          created_at?: string
-        }
-        Update: {
-          admin_id?: string
-          branch_id?: string
-          created_at?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "branch_admin_admin_id_fkey"
-            columns: ["admin_id"]
-            isOneToOne: false
-            referencedRelation: "admin"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "branch_admin_branch_id_fkey"
-            columns: ["branch_id"]
-            isOneToOne: false
-            referencedRelation: "branch"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      children: {
-        Row: {
-          age: number | null
-          checkin_status: Database["public"]["Enums"]["checkin_status"] | null
-          created_at: string
-          gender: Database["public"]["Enums"]["gender"]
-          id: string
-          name: string | null
-          order_id: string | null
-        }
-        Insert: {
-          age?: number | null
-          checkin_status?: Database["public"]["Enums"]["checkin_status"] | null
-          created_at?: string
-          gender?: Database["public"]["Enums"]["gender"]
-          id?: string
-          name?: string | null
-          order_id?: string | null
-        }
-        Update: {
-          age?: number | null
-          checkin_status?: Database["public"]["Enums"]["checkin_status"] | null
-          created_at?: string
-          gender?: Database["public"]["Enums"]["gender"]
-          id?: string
-          name?: string | null
-          order_id?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "children_order_id_fkey"
-            columns: ["order_id"]
-            isOneToOne: false
-            referencedRelation: "orders"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      companions: {
-        Row: {
-          checkin_status: Database["public"]["Enums"]["checkin_status"] | null
-          companion_identification: string | null
-          companion_identification_type:
-            | Database["public"]["Enums"]["identity_number_type"]
-            | null
-          created_at: string
-          gender: Database["public"]["Enums"]["gender"] | null
-          id: string
-          name: string | null
-          order_id: string | null
-          phone_num: string | null
-        }
-        Insert: {
-          checkin_status?: Database["public"]["Enums"]["checkin_status"] | null
-          companion_identification?: string | null
-          companion_identification_type?:
-            | Database["public"]["Enums"]["identity_number_type"]
-            | null
-          created_at?: string
-          gender?: Database["public"]["Enums"]["gender"] | null
-          id?: string
-          name?: string | null
-          order_id?: string | null
-          phone_num?: string | null
-        }
-        Update: {
-          checkin_status?: Database["public"]["Enums"]["checkin_status"] | null
-          companion_identification?: string | null
-          companion_identification_type?:
-            | Database["public"]["Enums"]["identity_number_type"]
-            | null
-          created_at?: string
-          gender?: Database["public"]["Enums"]["gender"] | null
-          id?: string
-          name?: string | null
-          order_id?: string | null
-          phone_num?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "companions_order_id_fkey"
-            columns: ["order_id"]
-            isOneToOne: false
-            referencedRelation: "orders"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      current_active_branch: {
-        Row: {
-          branch_id: string
-          user_id: string
-        }
-        Insert: {
-          branch_id?: string
-          user_id?: string
-        }
-        Update: {
-          branch_id?: string
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "current_active_branch_branch_id_fkey"
-            columns: ["branch_id"]
-            isOneToOne: false
-            referencedRelation: "branch"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "current_active_branch_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      customer: {
-        Row: {
-          created_at: string
-          email: string | null
-          fullname: string | null
-          id: string
-          identity_number: string | null
-          identity_number_type:
-            | Database["public"]["Enums"]["identity_number_type"]
-            | null
-          phone_num: string
-        }
-        Insert: {
-          created_at?: string
-          email?: string | null
-          fullname?: string | null
-          id?: string
-          identity_number?: string | null
-          identity_number_type?:
-            | Database["public"]["Enums"]["identity_number_type"]
-            | null
-          phone_num?: string
-        }
-        Update: {
-          created_at?: string
-          email?: string | null
-          fullname?: string | null
-          id?: string
-          identity_number?: string | null
-          identity_number_type?:
-            | Database["public"]["Enums"]["identity_number_type"]
-            | null
-          phone_num?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "customer_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "user"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      faqs: {
-        Row: {
-          branch_id: string | null
-          faq_description: string | null
-          faq_title: string | null
-          id: number
-        }
-        Insert: {
-          branch_id?: string | null
-          faq_description?: string | null
-          faq_title?: string | null
-          id?: number
-        }
-        Update: {
-          branch_id?: string | null
-          faq_description?: string | null
-          faq_title?: string | null
-          id?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "faqs_branch_id_fkey"
-            columns: ["branch_id"]
-            isOneToOne: false
-            referencedRelation: "branch"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      holidays: {
-        Row: {
-          branch_id: string
-          created_at: string
-          created_by: string | null
-          end_date: string
-          id: number
-          name: string
-          start_date: string
-        }
-        Insert: {
-          branch_id: string
-          created_at?: string
-          created_by?: string | null
-          end_date: string
-          id?: number
-          name: string
-          start_date: string
-        }
-        Update: {
-          branch_id?: string
-          created_at?: string
-          created_by?: string | null
-          end_date?: string
-          id?: number
-          name?: string
-          start_date?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "holidays_branch_id_fkey"
-            columns: ["branch_id"]
-            isOneToOne: false
-            referencedRelation: "branch"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "holidays_created_by_fkey"
-            columns: ["created_by"]
-            isOneToOne: false
-            referencedRelation: "user"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      order_session: {
-        Row: {
-          booking_time: Database["public"]["Enums"]["ticket_time_slot"] | null
-          id: string
-          is_booking: boolean | null
-          order_date: string | null
-        }
-        Insert: {
-          booking_time?: Database["public"]["Enums"]["ticket_time_slot"] | null
-          id?: string
-          is_booking?: boolean | null
-          order_date?: string | null
-        }
-        Update: {
-          booking_time?: Database["public"]["Enums"]["ticket_time_slot"] | null
-          id?: string
-          is_booking?: boolean | null
-          order_date?: string | null
-        }
-        Relationships: []
-      }
-      orders: {
-        Row: {
-          branch_id: string | null
-          created_at: string
+          amount: number
+          created_at: string | null
           customer: string | null
           id: string
-          order_number: number
-          order_session: string | null
-          price: number
-          status: Database["public"]["Enums"]["order_status"] | null
-          ticket: number | null
+          ticket: string | null
+          ticket_total: number
         }
         Insert: {
-          branch_id?: string | null
-          created_at?: string
+          amount?: number
+          created_at?: string | null
           customer?: string | null
           id?: string
-          order_number?: number
-          order_session?: string | null
-          price?: number
-          status?: Database["public"]["Enums"]["order_status"] | null
-          ticket?: number | null
+          ticket?: string | null
+          ticket_total?: number
         }
         Update: {
-          branch_id?: string | null
-          created_at?: string
+          amount?: number
+          created_at?: string | null
           customer?: string | null
           id?: string
-          order_number?: number
-          order_session?: string | null
-          price?: number
-          status?: Database["public"]["Enums"]["order_status"] | null
-          ticket?: number | null
+          ticket?: string | null
+          ticket_total?: number
         }
         Relationships: [
           {
-            foreignKeyName: "orders_branch_id_fkey"
-            columns: ["branch_id"]
-            isOneToOne: false
-            referencedRelation: "branch"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "orders_customer_fkey"
+            foreignKeyName: "order_customer_fkey1"
             columns: ["customer"]
             isOneToOne: false
-            referencedRelation: "customer"
+            referencedRelation: "users"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "orders_order_session_fkey"
-            columns: ["order_session"]
-            isOneToOne: false
-            referencedRelation: "order_session"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "orders_ticket_fkey"
+            foreignKeyName: "order_ticket_fkey"
             columns: ["ticket"]
             isOneToOne: false
             referencedRelation: "ticket"
@@ -583,220 +77,70 @@ export type Database = {
           },
         ]
       }
-      promo_codes: {
-        Row: {
-          amount: number
-          amount_type: Database["public"]["Enums"]["discount_type"]
-          branch_id: string
-          created_at: string
-          created_by: string
-          id: number
-          max_order: number | null
-          min_order: number | null
-          name: string
-          promo_code: string
-        }
-        Insert: {
-          amount: number
-          amount_type: Database["public"]["Enums"]["discount_type"]
-          branch_id: string
-          created_at?: string
-          created_by: string
-          id?: number
-          max_order?: number | null
-          min_order?: number | null
-          name: string
-          promo_code: string
-        }
-        Update: {
-          amount?: number
-          amount_type?: Database["public"]["Enums"]["discount_type"]
-          branch_id?: string
-          created_at?: string
-          created_by?: string
-          id?: number
-          max_order?: number | null
-          min_order?: number | null
-          name?: string
-          promo_code?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "promo_codes_branch_id_fkey"
-            columns: ["branch_id"]
-            isOneToOne: false
-            referencedRelation: "branch"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "promo_codes_created_by_fkey"
-            columns: ["created_by"]
-            isOneToOne: false
-            referencedRelation: "user"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      regular_ticket: {
-        Row: {
-          created_at: string
-          extra_price_child: number | null
-          extra_price_companion: number | null
-          free_children: number | null
-          free_companions: number | null
-          id: number
-          ticket_duration_type: Database["public"]["Enums"]["ticket_duration_type"]
-          ticket_duration_unit: number
-          weekdays_discount_type:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          weekdays_discount_unit: number | null
-          weekdays_price: number | null
-          weekend_discount_type:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          weekend_discount_unit: number | null
-          weekend_price: number | null
-        }
-        Insert: {
-          created_at?: string
-          extra_price_child?: number | null
-          extra_price_companion?: number | null
-          free_children?: number | null
-          free_companions?: number | null
-          id?: number
-          ticket_duration_type?: Database["public"]["Enums"]["ticket_duration_type"]
-          ticket_duration_unit?: number
-          weekdays_discount_type?:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          weekdays_discount_unit?: number | null
-          weekdays_price?: number | null
-          weekend_discount_type?:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          weekend_discount_unit?: number | null
-          weekend_price?: number | null
-        }
-        Update: {
-          created_at?: string
-          extra_price_child?: number | null
-          extra_price_companion?: number | null
-          free_children?: number | null
-          free_companions?: number | null
-          id?: number
-          ticket_duration_type?: Database["public"]["Enums"]["ticket_duration_type"]
-          ticket_duration_unit?: number
-          weekdays_discount_type?:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          weekdays_discount_unit?: number | null
-          weekdays_price?: number | null
-          weekend_discount_type?:
-            | Database["public"]["Enums"]["discount_type"]
-            | null
-          weekend_discount_unit?: number | null
-          weekend_price?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "regular_ticket_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "ticket"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      super_admin: {
-        Row: {
-          admin_name: string | null
-          created_at: string
-          id: string
-        }
-        Insert: {
-          admin_name?: string | null
-          created_at?: string
-          id: string
-        }
-        Update: {
-          admin_name?: string | null
-          created_at?: string
-          id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "super_admin_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "user"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       ticket: {
         Row: {
-          branch_id: string | null
-          cover_image_url: string
-          created_at: string
-          description: string | null
-          id: number
-          name: string
-          ticket_type: Database["public"]["Enums"]["ticket_type"] | null
+          id: string
+          single_pax_price: number
+          ticket_banner_url: string | null
+          ticket_description: string
+          ticket_name: string
+          ticket_num: number
+          ticket_path: string | null
         }
         Insert: {
-          branch_id?: string | null
-          cover_image_url?: string
-          created_at?: string
-          description?: string | null
-          id?: number
-          name?: string
-          ticket_type?: Database["public"]["Enums"]["ticket_type"] | null
-        }
-        Update: {
-          branch_id?: string | null
-          cover_image_url?: string
-          created_at?: string
-          description?: string | null
-          id?: number
-          name?: string
-          ticket_type?: Database["public"]["Enums"]["ticket_type"] | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "ticket_branch_id_fkey"
-            columns: ["branch_id"]
-            isOneToOne: false
-            referencedRelation: "branch"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      user: {
-        Row: {
-          created_at: string
-          email: string | null
-          id: string
-          role: Database["public"]["Enums"]["user_role"] | null
-        }
-        Insert: {
-          created_at?: string
-          email?: string | null
-          id: string
-          role?: Database["public"]["Enums"]["user_role"] | null
-        }
-        Update: {
-          created_at?: string
-          email?: string | null
           id?: string
-          role?: Database["public"]["Enums"]["user_role"] | null
+          single_pax_price?: number
+          ticket_banner_url?: string | null
+          ticket_description?: string
+          ticket_name?: string
+          ticket_num?: number
+          ticket_path?: string | null
+        }
+        Update: {
+          id?: string
+          single_pax_price?: number
+          ticket_banner_url?: string | null
+          ticket_description?: string
+          ticket_name?: string
+          ticket_num?: number
+          ticket_path?: string | null
+        }
+        Relationships: []
+      }
+      ticket_holder: {
+        Row: {
+          email: string | null
+          fullname: string | null
+          gender: Database["public"]["Enums"]["gender"]
+          id: string
+          order: string | null
+          wa_number: string | null
+          year_of_birth: number | null
+        }
+        Insert: {
+          email?: string | null
+          fullname?: string | null
+          gender?: Database["public"]["Enums"]["gender"]
+          id?: string
+          order?: string | null
+          wa_number?: string | null
+          year_of_birth?: number | null
+        }
+        Update: {
+          email?: string | null
+          fullname?: string | null
+          gender?: Database["public"]["Enums"]["gender"]
+          id?: string
+          order?: string | null
+          wa_number?: string | null
+          year_of_birth?: number | null
         }
         Relationships: [
           {
-            foreignKeyName: "user_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "users"
+            foreignKeyName: "ticket_holder_order_fkey"
+            columns: ["order"]
+            isOneToOne: false
+            referencedRelation: "order"
             referencedColumns: ["id"]
           },
         ]
@@ -806,87 +150,11 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      count_orders: {
-        Args: {
-          branch_id_param: string
-          start_date_param?: string
-          end_date_param?: string
-          order_status_param?: string
-          search_param?: string
-          ticket_category_param?: string
-        }
-        Returns: number
-      }
-      get_order_by_id: {
-        Args: {
-          order_id_param: string
-        }
-        Returns: {
-          order_id: string
-          order_number: number
-          price: number
-          order_status: Database["public"]["Enums"]["order_status"]
-          created_at: string
-          customer: Json
-          branch_name: string
-          tickets_details: Json
-          children_details: Json
-          companions_details: Json
-        }[]
-      }
-      get_orders: {
-        Args: {
-          branch_id_param: string
-          start_date_param?: string
-          end_date_param?: string
-          order_status_param?: Database["public"]["Enums"]["order_status"]
-          search_param?: string
-          ticket_category_param?: string
-          page_offset?: number
-          page_limit?: number
-        }
-        Returns: {
-          order_id: string
-          order_number: number
-          price: number
-          order_status: Database["public"]["Enums"]["order_status"]
-          created_at: string
-          customer: Json
-          branch_name: string
-        }[]
-      }
-      get_user_data: {
-        Args: {
-          user_id: string
-        }
-        Returns: Json
-      }
-      insert_or_update_current_branch_id: {
-        Args: {
-          p_user_id: string
-          p_branch_id: string
-        }
-        Returns: undefined
-      }
+      [_ in never]: never
     }
     Enums: {
-      checkin_status: "CHECKED_IN" | "CHECKED_OUT" | "NOT_CHECKED_IN"
-      day:
-        | "Monday"
-        | "Tuesday"
-        | "Wednesday"
-        | "Thursday"
-        | "Friday"
-        | "Saturday"
-        | "Sunday"
-      discount_type: "PERCENTAGE" | "FIX_NUMBER"
       gender: "Male" | "Female"
-      identity_number_type: "NIK" | "Passport" | "SIM"
-      order_status: "Pending Payment" | "Completed" | "Failed Payment"
-      ticket_duration_type: "HOURLY" | "FULL_DAY"
-      ticket_time_slot: "Morning" | "Afternoon" | "Evening"
-      ticket_type: "Regular" | "Addons" | "Booking"
-      user_role: "ADMIN" | "CUSTOMER" | "SUPER_ADMIN"
+      order_status: "Pending" | "Success"
     }
     CompositeTypes: {
       [_ in never]: never

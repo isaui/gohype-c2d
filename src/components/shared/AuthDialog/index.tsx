@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
-import { useEffect, useState } from "react"
+import {  useState } from "react"
 import { AuthStep } from "./constant"
 import { Input } from "@/components/ui/input"
+import { createClient } from "@/utils/supabase/client"
 
 type AuthDialogProps = {
     isOpen: boolean
@@ -23,6 +24,21 @@ const AuthDialog: React.FC<AuthDialogProps> = ({isOpen, setIsOpen}) => {
       }
       return <div></div>
     }
+
+    const handleLoginGoogle = async () => {
+      const supabase = createClient();
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: window.location.href
+        },
+        
+      });
+    
+      if (error) {
+        console.error('Error signing in with Google:', error);
+      }
+    };
 
     const generateLabel = () => {
       if(step == 'SELECT_AUTH' || step == 'SELECT_OTHER_AUTH'){
@@ -53,7 +69,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({isOpen, setIsOpen}) => {
     if(step == 'SELECT_AUTH' || step == 'SELECT_OTHER_AUTH'){
       return <div className="grid gap-4 py-4 px-4">
       <div className="flex w-full">
-        <Button className="w-full bg-[#282828]">
+        <Button onClick={handleLoginGoogle} className="w-full bg-[#282828]">
           <div className="flex items-center space-x-2">
         <img src="/google-icon.svg"/>
         <p>Continue with Google</p>
@@ -210,7 +226,11 @@ const AuthDialog: React.FC<AuthDialogProps> = ({isOpen, setIsOpen}) => {
   return (
     <div>
       <Dialog  open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="w-screen md:max-w-[425px] px-0 py-3 ">
+        <DialogContent className="w-screen md:max-w-[425px] px-0 py-5 "
+        onInteractOutside={(e) => {
+          e.preventDefault();
+        }}
+        >
           <DialogHeader className="px-4">
             {generateTitle()}
           </DialogHeader>

@@ -12,7 +12,7 @@ const TransactionPositionCard: React.FC<TransactionPositionProps> = ({
 
     const activeIndex = sections.findIndex(section => section === currentActiveSection);
 
-    return  <Card className={cn("w-[380px]", "h-fit")}>
+    return  <Card className={cn("w-[380px]", "h-fit ")}>
     <CardHeader>
       <CardTitle className="text-lg">{`Let's Get Your Ticket!`}</CardTitle>
     </CardHeader>

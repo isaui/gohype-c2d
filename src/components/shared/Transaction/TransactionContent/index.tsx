@@ -1,33 +1,36 @@
-"use client"
-import AuthDialog from "@/components/shared/AuthDialog"
+
 import { Card, CardContent } from "@/components/ui/card"
 import { paymentSections } from "@/utils/payment-section"
 import TransactionPositionCard from "@/components/shared/Transaction/TransactionPositionCard"
-import { useState } from "react"
+import Image from "next/image"
 
 type TransactionContentProps = {
     children: React.ReactNode
-    paymentPosition: number
+    paymentPosition: number,
+    needPlaceholder?: boolean,
+    imageUrl?: string
 }
 
-const TransactionContent: React.FC<TransactionContentProps> =  ({children, paymentPosition}) => {
-    const [isOpen, setIsOpen] = useState(true)
-    return <div className="flex w-full max-w-7xl md:gap-x-8 ">
-        <AuthDialog
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        />
+const TransactionContent: React.FC<TransactionContentProps> =  ({children, paymentPosition, needPlaceholder=false, imageUrl}) => {
+
+    return <div className="flex flex-col mx-auto max-w-7xl w-full ">
+        {
+            needPlaceholder && 
+            <Image alt="ticket" src={imageUrl??""} width={1} height={1} className="w-full h-auto md:my-6 md:rounded-2xl"/>
+        }
+         <div className="flex  w-full max-w-7xl md:px-4 lg:px-0">
         <div className="hidden md:flex">
         <TransactionPositionCard
             currentActiveSection={paymentSections[paymentPosition]}
             sections={paymentSections}
         />
         </div>
-        <Card className="w-full md:bg-white bg-background  rounded-none md:rounded-xl">
+        <Card className="w-full md:bg-white bg-background md:ml-8 rounded-none md:rounded-xl ">
             <CardContent className="p-0 md:p-4">
             {children}
             </CardContent>
         </Card>
+    </div>
     </div>
 }
 export default TransactionContent

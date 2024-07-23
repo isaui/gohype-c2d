@@ -1,4 +1,4 @@
-import OrderForm from "@/components/shared/OrderForm";
+import OrderForm from "@/components/modules/CheckoutModule/module-elements/OrderForm";
 
 export default function Home() {
   return (

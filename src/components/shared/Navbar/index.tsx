@@ -31,27 +31,78 @@ const Navbar: React.FC<NavbarProps> = ({ variant = 'FIXED', isAuthRequired = fal
     }
   };
 
+  const checkAndInsertUser = async (user: any): Promise<{ 
+    id: string;
+    email: string | null;
+    display_name: string | null;
+    phone_num: string | null;
+  } | null> => {
+   
+    const { data: existingUser, error: fetchError } = await supabase
+      .from('user')
+      .select('*')
+      .eq('id', user.id)
+      .single();
+  
+    if (fetchError && fetchError.code !== 'PGRST116') {
+      console.error('Error fetching user:', fetchError);
+      return null;
+    }
+  
+    if (existingUser) {
+      return existingUser;
+    } else {
+ 
+      const newUser = {
+        id: user.id,
+        email: user.email,
+        display_name: user.user_metadata.full_name || null,
+        phone_num: user.user_metadata.phone || null
+      };
+  
+      const { data: insertedUser, error: insertError } = await supabase
+        .from('user')
+        .insert(newUser)
+        .select()
+        .single();
+  
+      if (insertError) {
+        console.error('Error inserting user:', insertError);
+        return null;
+      }
+  
+      return insertedUser;
+    }
+  };
+
+  
+
   useEffect(() => {
     let isMounted = true;
-    let previousSession:any = null;
+    let previousSession: any = null;
   
     const handleAuthChange = async (event: string, session: Session | null) => {
       if (isMounted) {
         setIsAuthenticated(!!session);
-  
+    
         if (isAuthRequired && !session) {
           setIsAuthDialogOpen(true);
         } else {
           setIsAuthDialogOpen(false);
           
           if (event === 'SIGNED_IN' && session && !previousSession) {
-            toast({ description: "Welcome, " + session.user.email + "!" });
-            if(! session.user.user_metadata.phone){
-              setIsAddPhoneDialogOpen(true)
+            const dbUser = await checkAndInsertUser(session.user);
+            if (dbUser) {
+              toast({ description: "Welcome, " + (dbUser.display_name || dbUser.email) + "!" });
+              if (!dbUser.phone_num) {
+                setIsAddPhoneDialogOpen(true);
+              }
+            } else {
+              toast({ description: "An error occurred while processing your account.", variant:"destructive" });
             }
           }
         }
-  
+    
         previousSession = session;
       }
     };
@@ -59,6 +110,9 @@ const Navbar: React.FC<NavbarProps> = ({ variant = 'FIXED', isAuthRequired = fal
     const initializeAuth = async () => {
       const initialSession = await supabase.auth.getSession();
       previousSession = initialSession.data.session;
+      if (initialSession.data.session) {
+        await checkAndInsertUser(initialSession.data.session.user);
+      }
     };
   
     initializeAuth();
@@ -73,9 +127,11 @@ const Navbar: React.FC<NavbarProps> = ({ variant = 'FIXED', isAuthRequired = fal
 
   const handleAddPhoneNum = async (phoneNum: string) => {
     try {
-      const { data, error } = await supabase.auth.updateUser({
-        data: { phone: phoneNum }
-      });
+      const response = await supabase.auth.getUser()
+      const { data, error } = await supabase
+      .from("user")
+      .update({phone_num:phoneNum})
+      .eq("id", response.data.user?.id ??"");
   
       if (error) throw error;
   

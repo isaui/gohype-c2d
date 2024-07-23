@@ -62,6 +62,13 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "order_customer_fkey"
+            columns: ["customer"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "order_customer_fkey1"
             columns: ["customer"]
             isOneToOne: false
@@ -145,12 +152,46 @@ export type Database = {
           },
         ]
       }
+      user: {
+        Row: {
+          display_name: string | null
+          email: string | null
+          id: string
+          phone_num: string | null
+        }
+        Insert: {
+          display_name?: string | null
+          email?: string | null
+          id: string
+          phone_num?: string | null
+        }
+        Update: {
+          display_name?: string | null
+          email?: string | null
+          id?: string
+          phone_num?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      check_user_exists: {
+        Args: {
+          check_email: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
       gender: "Male" | "Female"

@@ -5,8 +5,8 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: 'no-reply@gohype.id',
-    pass: `ZcfilL'#UU~W42l`
+    user: process.env.NEXT_PUBLIC_EMAIL,
+    pass: process.env.NEXT_PUBLIC_EMAIL_PASS
   }
 });
 

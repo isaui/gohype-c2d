@@ -127,12 +127,14 @@ const OrderForm: React.FC<OrderFormProps> = ({ticketName="", ticketId="", ticket
       const supabase = createClient()
       const {data:userRes} = await supabase.auth.getUser()
       if(userRes.user){
+        toast({description:"Tunggu sebentar ya, lagi checkout-in order kamu..."})
         const {data: order} = await supabase.from("order").insert({
           amount: totalPrice,
           ticket_total: ticketData.count,
           ticket: ticketId,
           customer: userRes.user.id
         }).select().single()
+
 
         const ticketHolders = data.tickets.map(holder => ({
           email: holder.email,

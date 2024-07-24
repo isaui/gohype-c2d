@@ -22,10 +22,10 @@ const TransactionLayout: React.FC<TransactionLayoutProps> = (
 }) => {
     return <div className="flex flex-col w-screen min-h-screen bg-background items-center md:pt-20 pb-10">
     <div className="md:hidden">
-    <Navbar variant="SCROLL" isAuthRequired={true}/>
+    <Navbar variant="SCROLL"/>
     </div>
     <div className="hidden md:flex">
-    <Navbar variant="FIXED" isAuthRequired={true}/>
+    <Navbar variant="FIXED"/>
     </div>
     <TransactionHeader 
         callbackBackUrl={callbackBackUrl} 

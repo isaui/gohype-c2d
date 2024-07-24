@@ -1,24 +1,13 @@
-import { createClient } from "@/utils/supabase/server"
-import { convertToPage, convertToSection} from "./utils"
-import TicketSection from "./sections/TicketSection"
-import OrderSection from "./sections/OrderSection"
-import Navbar from "@/components/shared/Navbar"
-import LoginSection from "./sections/LoginSection"
+import Navbar from "@/components/shared/Navbar";
+import { createClient } from "@/utils/supabase/server";
 import { Lock } from "lucide-react"
-import SummarySection from "./sections/SummarySection"
-import SearchServerSection from "./sections/SearchServerSection"
+import LoginSection from "./sections/LoginSection";
+import TicketsSection from "./sections/TicketsSection";
 
-type DashboardModuleProps = {
-    eventPath?: string
-    section?: string
-    page?: string
-    search?: string
 
-}
 
-const DashboardModule: React.FC<DashboardModuleProps> = async ({eventPath, section, page, search}) => {
+const StartingDashboardModule = async ()=> {
     let isAdminAndAuthenticated = false
-    const dashboardSection = convertToSection(section);
     const supabase = createClient()
     const userResponse = await supabase.auth.getUser()
     if(userResponse.data.user){
@@ -27,9 +16,6 @@ const DashboardModule: React.FC<DashboardModuleProps> = async ({eventPath, secti
         isAdminAndAuthenticated = true
        } 
     }
-
-
-    const pageNumber = convertToPage(page)
 
     if (!isAdminAndAuthenticated) {
         return (
@@ -50,19 +36,16 @@ const DashboardModule: React.FC<DashboardModuleProps> = async ({eventPath, secti
         )
     }
 
+    const {data, error} = await supabase.from("ticket").select("*")
 
     return (
         <div className="flex flex-col w-screen min-h-screen bg-background items-center pt-16 pb-10">
             <Navbar isAuthRequired={true}/>
-            <SummarySection ticketPath={eventPath??""}/>
-            <SearchServerSection searchText={search??""} ticketPath={eventPath??""}/>
-            {
-                dashboardSection == 'order'?  
-                <OrderSection search={search} ticketPath={eventPath} page={pageNumber}/> : 
-                <TicketSection ticketPath={eventPath} page={pageNumber}/>
-            }
+            <TicketsSection tickets={data as any ?? []}/>
         </div>
     )
+    
+
 }
 
-export default DashboardModule
+export default StartingDashboardModule

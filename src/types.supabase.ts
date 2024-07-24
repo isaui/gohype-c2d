@@ -125,29 +125,35 @@ export type Database = {
       }
       ticket_holder: {
         Row: {
+          checked_in_date: string | null
           email: string | null
           fullname: string | null
           gender: Database["public"]["Enums"]["gender"]
           id: string
           order: string | null
+          status: Database["public"]["Enums"]["ticket_holder_status"]
           wa_number: string | null
           year_of_birth: number | null
         }
         Insert: {
+          checked_in_date?: string | null
           email?: string | null
           fullname?: string | null
           gender?: Database["public"]["Enums"]["gender"]
           id?: string
           order?: string | null
+          status?: Database["public"]["Enums"]["ticket_holder_status"]
           wa_number?: string | null
           year_of_birth?: number | null
         }
         Update: {
+          checked_in_date?: string | null
           email?: string | null
           fullname?: string | null
           gender?: Database["public"]["Enums"]["gender"]
           id?: string
           order?: string | null
+          status?: Database["public"]["Enums"]["ticket_holder_status"]
           wa_number?: string | null
           year_of_birth?: number | null
         }
@@ -167,18 +173,21 @@ export type Database = {
           email: string | null
           id: string
           phone_num: string | null
+          role: Database["public"]["Enums"]["role"] | null
         }
         Insert: {
           display_name?: string | null
           email?: string | null
           id: string
           phone_num?: string | null
+          role?: Database["public"]["Enums"]["role"] | null
         }
         Update: {
           display_name?: string | null
           email?: string | null
           id?: string
           phone_num?: string | null
+          role?: Database["public"]["Enums"]["role"] | null
         }
         Relationships: [
           {
@@ -205,6 +214,8 @@ export type Database = {
     Enums: {
       gender: "Male" | "Female"
       order_status: "Pending" | "Success"
+      role: "ADMIN" | "USER"
+      ticket_holder_status: "CHECKED_IN" | "NOT_CHECKED_IN" | "CHECKED_OUT"
     }
     CompositeTypes: {
       [_ in never]: never

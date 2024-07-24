@@ -8,10 +8,10 @@ import {
   DialogHeader,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { PersonListItemProps } from '../interface';
 import { QrCode } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import QRCode from 'react-qr-code';
+import { PersonListItemProps } from '../interface';
 
 export const PersonListItem: React.FC<PersonListItemProps> = ({
   id,

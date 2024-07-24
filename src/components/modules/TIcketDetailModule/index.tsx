@@ -2,40 +2,59 @@ import React from 'react';
 import { TicketDetailModuleProps } from './interface';
 import { BackButton } from './module-elements/BackButton';
 import { formatTime } from '@/utils/formatTime';
-import { TICKET_DETAIL } from './constant';
-import { MONTH_NAMES } from '@/constant';
+// import { TICKET_DETAIL } from './constant';
+// import { MONTH_NAMES } from '@/constant';
 import { PersonListItem } from './module-elements/PersonListItem';
 import { toTitleCase } from '@/utils/toTitleCase';
-import { AuthNavbar } from '@/components/shared/Navbar';
+import Navbar from '@/components/shared/Navbar';
+import { createClient } from '@/utils/supabase/server';
+import { redirect } from 'next/navigation';
 
-const TicketDetailModule: React.FC<TicketDetailModuleProps> = ({ id }) => {
-  const ticketDetail = TICKET_DETAIL;
+const TicketDetailModule: React.FC<TicketDetailModuleProps> = async ({
+  id,
+}) => {
+  const supabase = createClient();
+  const userResponse = await supabase.auth.getUser();
+  const userId = userResponse.data.user?.id ?? '';
 
-  let checkOutDate: Date = null;
-  if (ticketDetail.checkInDate) {
-    checkOutDate = new Date(ticketDetail.checkInDate);
-    checkOutDate.setMinutes(checkOutDate.getMinutes() + ticketDetail.duration);
-  }
-  const validDate = new Date(ticketDetail.validDate);
+  if (!userId) redirect('/');
+
+  const { data: ticketDetail, error: ticketDetailError } = await supabase
+    .from('order')
+    .select('*, ticket_holder(*), ticket(*)')
+    .eq('order_num', id)
+    .eq('customer', userId)
+    .single();
+
+  console.log(ticketDetail);
+
+  //   let checkOutDate: Date = null;
+  //   if (ticketDetail.checkInDate) {
+  //     checkOutDate = new Date(ticketDetail.checkInDate);
+  //     checkOutDate.setMinutes(checkOutDate.getMinutes() + ticketDetail.duration);
+  //   }
+  //   const validDate = new Date(ticketDetail.validDate);
+
+  if (!ticketDetail || ticketDetailError) redirect('/');
 
   return (
     <div className="flex flex-col items-center px-2 md:px-2 md:pt-2 pb-12 container max-w-screen-lg mx-auto min-h-screen">
       <div className="md:hidden">
-        <AuthNavbar variant="SCROLL" />
+        <Navbar variant="SCROLL" />
       </div>
       <div className="hidden md:flex">
-        <AuthNavbar variant="FIXED" />
+        <Navbar variant="FIXED" />
       </div>
       <div className="flex flex-col mt-2 gap-4 p-0 md:p-4 w-full">
         <BackButton />
         <div className="flex flex-col p-4 sm:p-8 gap-4 sm:gap-6 md:gap-7 w-full bg-white md:rounded-xl border border-[#E9E9E9]">
           <div className="flex md:items-center flex-col md:flex-row justify-between">
             <h1 className="font-semibold text-xl sm:text-2xl">
-              {ticketDetail.title}
+              {ticketDetail.ticket?.ticket_name}
             </h1>
             <span>ID: #{ticketDetail.id}</span>
           </div>
-          {ticketDetail.isCheckedIn &&
+          {/* {ticketDetail.isCheckedIn &&
           ticketDetail.checkInDate &&
           checkOutDate ? (
             <div className="font-semibold text-sm sm:text-base flex flex-col gap-1 bg-[#FFFAF1] border border-[#F0E3CD] p-3">
@@ -64,55 +83,15 @@ const TicketDetailModule: React.FC<TicketDetailModuleProps> = ({ id }) => {
               {validDate.getUTCFullYear()} only on{' '}
               {ticketDetail.isWeekend ? 'weekends' : 'weekdays'}
             </span>
-          )}
+          )} */}
           <div className="flex flex-col gap-2">
-            <h2 className="font-semibold text-lg">
-              Children{' '}
-              <span className="text-[#606060]">
-                ({ticketDetail.children.length})
-              </span>
-            </h2>
             <div className="flex flex-col gap-2">
-              {ticketDetail.children.map((child, index) => (
+              {ticketDetail.ticket_holder.map((holder) => (
                 <PersonListItem
-                  key={index}
-                  name={child.name}
-                  description={`${toTitleCase(child.gender)}, ${
-                    child.age
-                  } years old`}
-                  status={child.status}
-                  expiresAt={
-                    checkOutDate &&
-                    `${formatTime(checkOutDate.toISOString())} (
-                  ${ticketDetail.duration} minutes remaining)`
-                  }
-                  validDate={validDate}
-                  isWeekend={ticketDetail.isWeekend}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="flex flex-col gap-2">
-            <h2 className="font-semibold text-lg">
-              Companions{' '}
-              <span className="text-[#606060]">
-                ({ticketDetail.companions.length})
-              </span>
-            </h2>
-            <div className="flex flex-col gap-2">
-              {ticketDetail.companions.map((companion, index) => (
-                <PersonListItem
-                  key={index}
-                  name={companion.name}
-                  description={`${companion.identityType} ${companion.identityValue}`}
-                  status={companion.status}
-                  expiresAt={
-                    checkOutDate &&
-                    `${formatTime(checkOutDate.toISOString())} (
-                    ${ticketDetail.duration} minutes remaining)`
-                  }
-                  validDate={validDate}
-                  isWeekend={ticketDetail.isWeekend}
+                  key={holder.id}
+                  name={holder.fullname || '<no-name>'}
+                  status={holder.status}
+                  id={holder.id}
                 />
               ))}
             </div>

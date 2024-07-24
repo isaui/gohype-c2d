@@ -125,7 +125,11 @@ const OrderForm: React.FC<OrderFormProps> = ({ticketName="", ticketId="", ticket
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     if(totalPrice <= 0){
       const supabase = createClient()
-      const {data:userRes} = await supabase.auth.getUser()
+      const {data:userRes, error} = await supabase.auth.getUser()
+      alert("DATA USER?")
+      if(error){
+        console.log(error)
+      }
       if(userRes.user){
         toast({description:"Tunggu sebentar ya, lagi checkout-in order kamu..."})
         const {data: order} = await supabase.from("order").insert({

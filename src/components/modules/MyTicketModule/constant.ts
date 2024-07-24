@@ -24,3 +24,5 @@ export const TICKET_ITEMS = [
       'https://support.thinkific.com/hc/article_attachments/360042081334/5d37325ea1ff6.png',
   },
 ];
+
+export const TICKETS_PER_PAGE = 3

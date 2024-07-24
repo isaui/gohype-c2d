@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect } from "react"
 import { AuthStep } from "./constant"
 import { Input } from "@/components/ui/input"
 import { createClient } from "@/utils/supabase/client"
@@ -47,6 +47,10 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ isOpen, setIsOpen }) => {
         }
         return <div></div>
     }
+
+    useEffect(()=>{
+        setStep("SELECT_AUTH")
+    },[isOpen])
 
     const handleLoginGoogle = async () => {
         const supabase = createClient();
@@ -105,10 +109,12 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ isOpen, setIsOpen }) => {
       const otp = generateOtp();
       setProvidedOtp(otp);
       const encryptedOtp = encryptOTP(otp)
+      setResendTimer(60);
+      setIsResendDisabled(true); 
       toast({ description: "The OTP code has been sent to your email. If you don't find it, please check your spam folder." });
       await axios.post("/api/send-otp", {email, otp:encryptedOtp})
-      setResendTimer(60); // Start the 60-second countdown
-      setIsResendDisabled(true); 
+       // Start the 60-second countdown
+      
     };
 
     const handleResendOtp = () => {
@@ -221,7 +227,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ isOpen, setIsOpen }) => {
         return <div></div>
     }
 
-    const generateContent = useCallback(() => {
+    const generateContent = () => {
         if (step === 'SELECT_AUTH' || step === 'SELECT_OTHER_AUTH') {
             return <div className="grid gap-4 py-4 px-4">
                 <div className="flex w-full">
@@ -335,7 +341,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ isOpen, setIsOpen }) => {
         }
 
         return <div></div>
-    },[isResendDisabled, providedOtp])
+    }
 
     return (
       <div>

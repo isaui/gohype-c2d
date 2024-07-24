@@ -41,6 +41,7 @@ export type Database = {
           created_at: string | null
           customer: string | null
           id: string
+          order_num: number
           ticket: string | null
           ticket_total: number
         }
@@ -49,6 +50,7 @@ export type Database = {
           created_at?: string | null
           customer?: string | null
           id?: string
+          order_num?: number
           ticket?: string | null
           ticket_total?: number
         }
@@ -57,6 +59,7 @@ export type Database = {
           created_at?: string | null
           customer?: string | null
           id?: string
+          order_num?: number
           ticket?: string | null
           ticket_total?: number
         }
@@ -90,27 +93,33 @@ export type Database = {
           single_pax_price: number
           ticket_banner_url: string | null
           ticket_description: string
+          ticket_end_date: string | null
           ticket_name: string
           ticket_num: number
           ticket_path: string | null
+          ticket_start_date: string | null
         }
         Insert: {
           id?: string
           single_pax_price?: number
           ticket_banner_url?: string | null
           ticket_description?: string
+          ticket_end_date?: string | null
           ticket_name?: string
           ticket_num?: number
           ticket_path?: string | null
+          ticket_start_date?: string | null
         }
         Update: {
           id?: string
           single_pax_price?: number
           ticket_banner_url?: string | null
           ticket_description?: string
+          ticket_end_date?: string | null
           ticket_name?: string
           ticket_num?: number
           ticket_path?: string | null
+          ticket_start_date?: string | null
         }
         Relationships: []
       }

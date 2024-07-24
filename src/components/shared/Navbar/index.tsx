@@ -27,7 +27,7 @@ const Navbar: React.FC<NavbarProps> = ({ variant = 'FIXED', isAuthRequired = fal
     if (!isAuthenticated) {
       setIsAuthDialogOpen(true);
     } else {
-      router.push("my-tickets")
+      router.push("/my-tickets")
     }
   };
 

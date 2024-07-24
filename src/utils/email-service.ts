@@ -5,14 +5,14 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: 'no-reply@gohype.id',
-    pass: `ZcfilL'#UU~W42l`
+    user: process.env.NEXT_PUBLIC_EMAIL,
+    pass: process.env.NEXT_PUBLIC_EMAIL_PASS
   }
 });
 
 export const sendOTPEmail = async (to: string, otp: string) => {
     const mailOptions = {
-      from: 'no-reply@gohype.id',
+      from: process.env.NEXT_PUBLIC_EMAIL,
       to: to,
       subject: '[GOHYPE] OTP Verification',
       text: `Dear Customer,

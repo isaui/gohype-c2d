@@ -210,6 +210,18 @@ export type Database = {
         }
         Returns: boolean
       }
+      get_orders: {
+        Args: {
+          p_ticket_path: string
+          p_search: string
+          p_offset: number
+          p_limit: number
+        }
+        Returns: {
+          order_data: Json
+          total_count: number
+        }[]
+      }
     }
     Enums: {
       gender: "Male" | "Female"

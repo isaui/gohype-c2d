@@ -1,19 +1,23 @@
 import { createClient } from "@/utils/supabase/server"
-import { convertToPage, convertToSection, fetchSummaryData } from "./utils"
+import { convertToPage, convertToSection} from "./utils"
 import TicketSection from "./sections/TicketSection"
 import OrderSection from "./sections/OrderSection"
 import Navbar from "@/components/shared/Navbar"
 import LoginSection from "./sections/LoginSection"
 import { Lock } from "lucide-react"
 import SummarySection from "./sections/SummarySection"
+import SearchSection from "./sections/SearchSection"
+import SearchServerSection from "./sections/SearchServerSection"
 
 type DashboardModuleProps = {
     eventPath?: string
     section?: string
     page?: string
+    search?: string
+
 }
 
-const DashboardModule: React.FC<DashboardModuleProps> = async ({eventPath, section, page}) => {
+const DashboardModule: React.FC<DashboardModuleProps> = async ({eventPath, section, page, search}) => {
     let isAdminAndAuthenticated = false
     const dashboardSection = convertToSection(section);
     const supabase = createClient()
@@ -52,14 +56,10 @@ const DashboardModule: React.FC<DashboardModuleProps> = async ({eventPath, secti
         <div className="flex flex-col w-screen min-h-screen bg-background items-center pt-16 pb-10">
             <Navbar isAuthRequired={true}/>
             <SummarySection ticketPath={eventPath??""}/>
-            <div className="flex w-full mx-auto max-w-7xl items-center px-4 mt-8 mb-4">
-               {
-                <h1 className="text-2xl font-bold">Cipete Creative District</h1>
-               }
-            </div>
+            <SearchServerSection searchText={search??""} ticketPath={eventPath??""}/>
             {
                 dashboardSection == 'order'?  
-                <OrderSection ticketPath={eventPath} page={pageNumber}/> : 
+                <OrderSection search={search} ticketPath={eventPath} page={pageNumber}/> : 
                 <TicketSection ticketPath={eventPath} page={pageNumber}/>
             }
         </div>

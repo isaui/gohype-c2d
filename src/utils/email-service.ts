@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 
 export const sendOTPEmail = async (to: string, otp: string) => {
     const mailOptions = {
-      from: 'no-reply@gohype.id',
+      from: process.env.NEXT_PUBLIC_EMAIL,
       to: to,
       subject: '[GOHYPE] OTP Verification',
       text: `Dear Customer,

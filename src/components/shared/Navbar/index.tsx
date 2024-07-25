@@ -38,10 +38,14 @@ const Navbar: React.FC<NavbarProps> = ({ variant = 'FIXED', isAuthRequired = fal
   };
 
   const handleLogoutClick = async () => {
-    await supabase.auth.signOut();
+    try {
+      const res = await supabase.auth.signOut();
     setIsAuthenticated(false);
     setIsAdmin(false);
-    router.refresh()
+    window.location.href = window.location.href
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   const checkAndInsertUser = async (user: any): Promise<{
@@ -61,7 +65,6 @@ const Navbar: React.FC<NavbarProps> = ({ variant = 'FIXED', isAuthRequired = fal
       console.error('Error fetching user:', fetchError);
       return null;
     }
-
     if (existingUser) {
       setIsAdmin(existingUser.role === 'ADMIN');
       return existingUser;
@@ -91,50 +94,49 @@ const Navbar: React.FC<NavbarProps> = ({ variant = 'FIXED', isAuthRequired = fal
 
   useEffect(() => {
     let isMounted = true;
-    let previousSession: any = null;
-
+    let previousSession: Session | null = null;
     const handleAuthChange = async (event: string, session: Session | null) => {
-      if (isMounted) {
-        setIsAuthenticated(!!session);
-
-        if (isAuthRequired && !session) {
-          setIsAuthDialogOpen(true);
-        } else {
-          setIsAuthDialogOpen(false);
-
-          if (event === 'SIGNED_IN' && session && !previousSession) {
-            const dbUser = await checkAndInsertUser(session.user);
-            if (dbUser) {
-              toast({ description: "Welcome, " + (dbUser.display_name || dbUser.email) + "!" });
+      if (!isMounted) return;
+      setIsAuthenticated(!!session);
+      if (isAuthRequired && !session) {
+        setIsAuthDialogOpen(true);
+      } else {
+        setIsAuthDialogOpen(false);
+        if (event === 'SIGNED_IN' && session && !previousSession) {
+          const dbUser = await checkAndInsertUser(session.user);
+          if (dbUser) {
+            if (isMounted) {
+              toast({ description: `Welcome, ${dbUser.display_name || dbUser.email}!` });
               if (!dbUser.phone_num) {
                 setIsAddPhoneDialogOpen(true);
               }
-            } else {
-              toast({ description: "An error occurred while processing your account.", variant: "destructive" });
             }
+          } else if (isMounted) {
+            toast({ description: "An error occurred while processing your account.", variant: "destructive" });
           }
         }
-
-        previousSession = session;
       }
+      previousSession = session;
     };
-
+  
     const initializeAuth = async () => {
-      const initialSession = await supabase.auth.getSession();
-      previousSession = initialSession.data.session;
-      if (initialSession.data.session) {
-        await checkAndInsertUser(initialSession.data.session.user);
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session && isMounted) {
+        previousSession = session;
+        await checkAndInsertUser(session.user);
       }
     };
-
-    initializeAuth();
-
-    const { data: authListener } = supabase.auth.onAuthStateChange(handleAuthChange);
-
-    return () => {
-      isMounted = false;
-      authListener.subscription.unsubscribe();
-    };
+  
+    initializeAuth().then(() => {
+      if (isMounted) {
+        const { data: authListener } = supabase.auth.onAuthStateChange(handleAuthChange);
+        return () => {
+          isMounted = false;
+          authListener.subscription.unsubscribe();
+        };
+      }
+    });
+  
   }, [isAuthRequired]);
 
   const handleAddPhoneNum = async (phoneNum: string) => {

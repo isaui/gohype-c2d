@@ -186,7 +186,6 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ isOpen, setIsOpen }) => {
             return
         }
         const supabase = createClient()
-        console.log("Ini emailmu anak ajg  ",email, newPassword)
         const {data, error} = await supabase.auth.admin.createUser({email, password:newPassword, email_confirm:true})
         if(data.user){
             const newUser = {

@@ -178,6 +178,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
   };
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
+<<<<<<< HEAD
     if (totalPrice <= 0) {
       const supabase = createClient();
       const { data: userRes } = await supabase.auth.getUser();
@@ -195,6 +196,26 @@ const OrderForm: React.FC<OrderFormProps> = ({
           .single();
 
         const ticketHolders = data.tickets.map((holder) => ({
+=======
+    if(totalPrice <= 0){
+      const supabase = createClient()
+      const {data:userRes, error} = await supabase.auth.getUser()
+      alert("DATA USER?")
+      if(error){
+        console.log(error)
+      }
+      if(userRes.user){
+        toast({description:"Tunggu sebentar ya, lagi checkout-in order kamu..."})
+        const {data: order} = await supabase.from("order").insert({
+          amount: totalPrice,
+          ticket_total: ticketData.count,
+          ticket: ticketId,
+          customer: userRes.user.id
+        }).select().single()
+
+
+        const ticketHolders = data.tickets.map(holder => ({
+>>>>>>> 196e0fd4fa49c3ec3a1eca463361e28b3a6840e9
           email: holder.email,
           fullname: holder.fullName,
           gender: holder.gender,

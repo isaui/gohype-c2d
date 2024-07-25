@@ -1,5 +1,5 @@
 export const toTimestampTz = (date: Date) => {
-  const pad = (n) => (n < 10 ? '0' + n : n);
+  const pad = (n:any) => (n < 10 ? '0' + n : n);
 
   const year = date.getFullYear();
   const month = pad(date.getMonth() + 1);

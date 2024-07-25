@@ -5,6 +5,9 @@ import TicketCounter from "../module-elements/TicketCounter";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useTicketStore } from "@/components/store/ticketStore";
+import { useNavbarStore } from "@/components/store/navbarStore";
+import { createClient } from "@/utils/supabase/client";
+import { useRouter } from "next/navigation";
 
 type SelectTicketQuantitySectionProps = {
   ticketTitle?: string;
@@ -22,8 +25,10 @@ const SelectTicketQuantitySection: React.FC<SelectTicketQuantitySectionProps> = 
   ticketQuota
 }) => {
   const { ticketData, setTicketData, totalPrice, setTotalPrice, isInitialized } = useTicketStore();
+  const { setIsAuthDialogOpen } = useNavbarStore()
   const priceRef = useRef<HTMLSpanElement>(null);
   const [triggerWidth, setTriggerWidth] = useState<string>('auto');
+  const router = useRouter()
 
   useEffect(() => {
     if (isInitialized) {
@@ -58,6 +63,17 @@ const SelectTicketQuantitySection: React.FC<SelectTicketQuantitySectionProps> = 
   };
 
   const displayPrice = totalPrice === 0 ? "Free" : `Rp ${totalPrice.toLocaleString("id-ID")}`;
+
+  const onClickOrder = async () => {
+     const supabase = createClient()
+     const userResponse = await supabase.auth.getUser();
+     if(userResponse.data.user){
+        router.push(`/${prefixUrl}/checkout`)
+     }
+     else{
+      setIsAuthDialogOpen(true) 
+     }
+  }
 
   return (
     <div className="flex flex-col w-full">
@@ -106,9 +122,7 @@ const SelectTicketQuantitySection: React.FC<SelectTicketQuantitySectionProps> = 
                 Order Now
               </Button>
             ) : (
-              <a href={`/${prefixUrl}/checkout`}>
-                <Button className="bg-primary ml-2">Next</Button>
-              </a>
+                <Button onClick={onClickOrder} className="bg-primary ml-2">Next</Button>
             )}
           </div>
         </div>

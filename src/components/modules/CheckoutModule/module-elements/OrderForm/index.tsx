@@ -184,7 +184,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
       const { data: userRes, error: userError } = await supabase.auth.getUser();
       const { data: ticket, error: ticketError} = await supabase.from("ticket").select("*").eq("id", ticketId).single();
       if (userError) {
-        toast({description:userError.message, variant:"destructive"})
+        setIsAuthDialogOpen(true)
         return
       }
 

@@ -181,14 +181,28 @@ const OrderForm: React.FC<OrderFormProps> = ({
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     if (totalPrice <= 0) {
       const supabase = createClient();
-      const { data: userRes, error } = await supabase.auth.getUser();
-      //  alert("DATA USER?")
-      if (error) {
-        console.log(error);
+      const { data: userRes, error: userError } = await supabase.auth.getUser();
+      const { data: ticket, error: ticketError} = await supabase.from("ticket").select("*").eq("id", ticketId).single();
+      if (userError) {
+        toast({description:userError.message, variant:"destructive"})
+        return
       }
+
+      if(ticketError){
+        toast({description:ticketError.message, variant:"destructive"})
+        return
+      }
+
+      const sisaTiket = ticket?.ticket_quota ?? 0  - ticketData.count
+
+      if(sisaTiket < 0){
+        toast({description:"Sorry, we're out of tickets.", variant:"destructive" })
+        return
+      }
+
       if (userRes.user) {
         toast({
-          description: 'Tunggu sebentar ya, lagi checkout-in order kamu...',
+          description: "Hold tight! We're checking out your order..."
         });
         const { data: order } = await supabase
           .from('order')
@@ -200,6 +214,8 @@ const OrderForm: React.FC<OrderFormProps> = ({
           })
           .select('*, ticket(*)')
           .single();
+        
+          await supabase.from("ticket").update({ticket_quota: sisaTiket}).eq("id", ticketId).single();
 
         const ticketHolders = data.tickets.map((holder) => ({
           email: holder.email,
@@ -227,7 +243,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
           );
         }
         if (!response.error) {
-          toast({ description: 'Berhasil order tiket' });
+          toast({ description: 'Your tickets have been booked successfully!' });
           router.push('/my-tickets');
           return;
         }

@@ -15,12 +15,14 @@ const CartModule: React.FC<CartModuleProps> = async ({prefixName}) => {
     let ticketName = ""
     let ticketDescription = ""
     let imageUrl = ""
+    let ticketQuota = 0
     let price = 0
     if(data){
         ticketName = data.ticket_name
         ticketDescription = data.ticket_description
         price = data.single_pax_price
         imageUrl = data.ticket_banner_url ?? ""
+        ticketQuota = data.ticket_quota ?? 0
 
     }
 
@@ -38,6 +40,7 @@ const CartModule: React.FC<CartModuleProps> = async ({prefixName}) => {
             ticketTitle={ticketName}
             ticketDescription={ticketDescription}
             paxPrice={price}
+            ticketQuota={ticketQuota}
             />
         </TransactionLayout>
     )

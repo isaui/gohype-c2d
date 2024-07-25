@@ -11,6 +11,7 @@ type SelectTicketQuantitySectionProps = {
   ticketDescription?: string;
   paxPrice?: number;
   prefixUrl?: string;
+  ticketQuota: number;
 };
 
 const SelectTicketQuantitySection: React.FC<SelectTicketQuantitySectionProps> = ({
@@ -18,6 +19,7 @@ const SelectTicketQuantitySection: React.FC<SelectTicketQuantitySectionProps> = 
   ticketDescription = "Enjoy unlimited access to all games for one hour",
   paxPrice = 90000,
   prefixUrl = "",
+  ticketQuota
 }) => {
   const { ticketData, setTicketData, totalPrice, setTotalPrice, isInitialized } = useTicketStore();
   const priceRef = useRef<HTMLSpanElement>(null);
@@ -61,6 +63,7 @@ const SelectTicketQuantitySection: React.FC<SelectTicketQuantitySectionProps> = 
     <div className="flex flex-col w-full">
       <div className="flex flex-col w-full py-4 px-4 bg-white md:mt-0">
         <h1 className="text-2xl font-semibold">{ticketTitle}</h1>
+        <p className=" font-semibold text-tertiary">{ticketQuota} tickets left</p>
         <p className="mt-2 text-secondary">{ticketDescription}</p>
       </div>
       <hr className="hidden md:flex border-2 bg-background mx-4" />
@@ -98,7 +101,7 @@ const SelectTicketQuantitySection: React.FC<SelectTicketQuantitySectionProps> = 
             </div>
           </div>
           <div>
-            {ticketData.count === 0 ? (
+            {ticketData.count === 0 || ticketQuota == 0 ? (
               <Button className="bg-primary ml-2" disabled={true}>
                 Order Now
               </Button>

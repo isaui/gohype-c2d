@@ -36,6 +36,7 @@
     "nodemailer": "^6.9.14",
     "persist": "^0.2.7",
     "qr-scanner": "^1.4.2",
+    "qrcode": "^1.5.3",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.52.1",

@@ -1,23 +1,31 @@
 export type Ticket = {
-    ticketTitle: string
-    ticketSubtitle: string
-    ticketPrice: string
-    actualTicketPrice: string
-}
+  ticketTitle: string;
+  ticketSubtitle: string;
+  ticketPrice: string;
+  actualTicketPrice: string;
+};
 
 export type TicketsGroup = {
-    title: string
-    tickets: Ticket[]
-}
+  title: string;
+  tickets: Ticket[];
+};
 
 export type TicketTimeInformation = {
-    value: string
-    startTime: string,
-    endTime: string
-}
+  value: string;
+  startTime: string;
+  endTime: string;
+};
 
 export type TicketData = {
-    label: string;
-    price: string;
-    count: number;
-}
+  label: string;
+  price: string;
+  count: number;
+};
+
+export type TicketType = {
+  id: string;
+  title: string;
+  recipient: string;
+  startDate: string;
+  endDate: string;
+};

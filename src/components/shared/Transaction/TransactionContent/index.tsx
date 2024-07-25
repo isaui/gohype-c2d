@@ -16,7 +16,7 @@ const TransactionContent: React.FC<TransactionContentProps> =  ({children, payme
     return <div className="flex flex-col mx-auto max-w-7xl w-full ">
         {
             needPlaceholder && 
-            <Image alt="ticket" src={imageUrl??""} width={1} height={1} className="w-full h-auto md:my-6 md:rounded-2xl"/>
+            <img alt="ticket" src={imageUrl??""} className="w-full h-auto md:my-6 md:rounded-2xl"/>
         }
          <div className="flex  w-full max-w-7xl md:px-4 lg:px-0">
         <div className="hidden md:flex">

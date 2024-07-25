@@ -193,7 +193,8 @@ const OrderForm: React.FC<OrderFormProps> = ({
         return
       }
 
-      const sisaTiket = ticket?.ticket_quota ?? 0  - ticketData.count
+      const sisaTiket = (ticket?.ticket_quota ?? 0)  - ticketData.count
+      
 
       if(sisaTiket < 0){
         toast({description:"Sorry, we're out of tickets.", variant:"destructive" })
@@ -215,7 +216,10 @@ const OrderForm: React.FC<OrderFormProps> = ({
           .select('*, ticket(*)')
           .single();
         
-          await supabase.from("ticket").update({ticket_quota: sisaTiket}).eq("id", ticketId).single();
+         const res = await supabase.from("ticket").update({ticket_quota: sisaTiket}).eq("id", ticketId).single();
+         //alert(res.error?.message)
+         //alert(sisaTiket)
+         //alert(ticketId)
 
         const ticketHolders = data.tickets.map((holder) => ({
           email: holder.email,

@@ -230,7 +230,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
           .insert(ticketHolders as any)
           .select('*, order(*, ticket(*))');
         if (userRes.user.email) {
-          await sendTicketEmail(
+          sendTicketEmail(
             userRes.user.email,
             order?.ticket?.ticket_banner_url || '',
             response.data?.map((ticket) => ({

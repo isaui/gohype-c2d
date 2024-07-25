@@ -26,8 +26,6 @@ const TicketDetailModule: React.FC<TicketDetailModuleProps> = async ({
     .eq('customer', userId)
     .single();
 
-  console.log(ticketDetail);
-
   //   let checkOutDate: Date = null;
   //   if (ticketDetail.checkInDate) {
   //     checkOutDate = new Date(ticketDetail.checkInDate);

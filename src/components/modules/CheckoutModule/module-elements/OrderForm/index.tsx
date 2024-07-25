@@ -39,6 +39,7 @@ import { useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { useNavbarStore } from '@/components/store/navbarStore';
 import { useToast } from '@/components/ui/use-toast';
+import { TicketType } from '@/types';
 
 const ticketSchema = z.object({
   fullName: z
@@ -161,7 +162,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
   const sendTicketEmail = async (
     email: string,
     ticketBannerUrl: string,
-    tickets,
+    tickets: TicketType[],
   ) => {
     try {
       await fetch('/api/send-tickets', {
@@ -178,13 +179,18 @@ const OrderForm: React.FC<OrderFormProps> = ({
   };
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-<<<<<<< HEAD
     if (totalPrice <= 0) {
       const supabase = createClient();
-      const { data: userRes } = await supabase.auth.getUser();
+      const { data: userRes, error } = await supabase.auth.getUser();
+      alert('DATA USER?');
+      if (error) {
+        console.log(error);
+      }
       if (userRes.user) {
-        console.log(ticketId);
-        const { data: order, error: orderError } = await supabase
+        toast({
+          description: 'Tunggu sebentar ya, lagi checkout-in order kamu...',
+        });
+        const { data: order } = await supabase
           .from('order')
           .insert({
             amount: totalPrice,
@@ -196,26 +202,6 @@ const OrderForm: React.FC<OrderFormProps> = ({
           .single();
 
         const ticketHolders = data.tickets.map((holder) => ({
-=======
-    if(totalPrice <= 0){
-      const supabase = createClient()
-      const {data:userRes, error} = await supabase.auth.getUser()
-      alert("DATA USER?")
-      if(error){
-        console.log(error)
-      }
-      if(userRes.user){
-        toast({description:"Tunggu sebentar ya, lagi checkout-in order kamu..."})
-        const {data: order} = await supabase.from("order").insert({
-          amount: totalPrice,
-          ticket_total: ticketData.count,
-          ticket: ticketId,
-          customer: userRes.user.id
-        }).select().single()
-
-
-        const ticketHolders = data.tickets.map(holder => ({
->>>>>>> 196e0fd4fa49c3ec3a1eca463361e28b3a6840e9
           email: holder.email,
           fullname: holder.fullName,
           gender: holder.gender,
@@ -227,17 +213,17 @@ const OrderForm: React.FC<OrderFormProps> = ({
           .from('ticket_holder')
           .insert(ticketHolders as any)
           .select('*, order(*, ticket(*))');
-        console.log(response);
         if (userRes.user.email) {
           await sendTicketEmail(
             userRes.user.email,
             order?.ticket?.ticket_banner_url || '',
             response.data?.map((ticket) => ({
-              id: ticket.id,
-              title: ticket.order?.ticket?.ticket_name,
-              recipient: ticket.fullname,
-              date: ticket.order?.created_at,
-            })),
+              id: ticket.id || '',
+              title: ticket.order?.ticket?.ticket_name || '',
+              recipient: ticket.fullname || '',
+              startDate: ticket.order?.ticket?.ticket_start_date || '',
+              endDate: ticket.order?.ticket?.ticket_end_date || '',
+            })) || [],
           );
         }
         if (!response.error) {

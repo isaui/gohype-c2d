@@ -1,3 +1,4 @@
+import { TicketType } from '@/types';
 import nodemailer from 'nodemailer';
 import QRCode from 'qrcode';
 
@@ -49,13 +50,6 @@ export const sendOTPEmail = async (to: string, otp: string) => {
   }
 };
 
-type TicketType = {
-  id: string;
-  title: string;
-  recipient: string;
-  date: string;
-};
-
 export const sendTicketsEmail = async (
   to: string,
   ticketBannerUrl: string,
@@ -72,32 +66,41 @@ export const sendTicketsEmail = async (
   // Build the HTML with the generated QR codes
   const ticketsHtml = ticketsWithQR
     .map((ticket) => {
-      console.log(ticket.date);
-      const date = new Date(ticket.date);
-      console.log(date);
-      const formatedDate = new Intl.DateTimeFormat('en-US', {
+      const startDate = new Date(ticket.startDate);
+      const endDate = new Date(ticket.endDate);
+      const formattedStartDate = new Intl.DateTimeFormat('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
         hour: '2-digit',
         minute: '2-digit',
-        timeZoneName: 'short',
-      }).format(date);
+        timeZone: 'Asia/Jakarta',
+      })
+        .format(startDate)
+        .replace('GMT+7', 'WIB');
+
+      const formattedEndDate = new Intl.DateTimeFormat('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Asia/Jakarta',
+      })
+        .format(endDate)
+        .replace('GMT+7', 'WIB');
+
+      const dateRange = `${formattedStartDate} - ${formattedEndDate}`;
       return `<div style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin: 16px 0;">
       <img src="${ticket.qrCode}" style="width: 150px; height: 150px; margin-right: 16px;">
       <div style="flex-grow: 1;">
         <h2 style="margin: 0; font-size: 18px;">Cipete Creative District</h2>
-        <p style="margin: 8px 0;">${formatedDate}</p>
+        <p style="margin: 8px 0;">${dateRange}</p>
         <div style="display: flex; justify-content: space-between;">
-          <span>Ticket Holder</span>
+          <span style="padding-right: 30px;">Ticket Holder</span>
           <span>${ticket.recipient}</span>
         </div>
       </div>
     </div>`;
     })
     .join(''); // Join the HTML strings into one
-
-  console.log(ticketBannerUrl);
 
   const mailOptions = {
     from: 'no-reply@gohype.id',
@@ -107,9 +110,10 @@ export const sendTicketsEmail = async (
     attachDataUrls: true,
     html: `
          <div style="width: 100%; max-width: 640px; margin: 0 auto;font-family: Arial, sans-serif; color: #333;">
-          <div style="text-align: center; padding: 20px;">
+          <div style="text-align: center;border-radius: 15px; overflow: hidden;">
+              <img src="${ticketBannerUrl}" alt="Cipete Creative District" style="max-width: 100%; height: auto;">
           </div>
-          <div style="padding-top: 20px;">
+          <div style="padding: 0 10px;">
             <h1 style="font-size: 24px; margin-bottom: 16px;">Cipete Creative District</h1>
             <p style="margin-bottom: 16px;">Cipete Creative District adalah platform besar yang bertujuan untuk menampilkan komunitas kreatif di Cipete. Di sini, kamu bisa melihat kolaborasi menarik dari ekosistem pelaku bisnis di Cipete, di mana setiap interaksi antara komunitas dan pelaku bisnis akan meningkatkan nilai dari wilayah Cipete.</p>
           </div>

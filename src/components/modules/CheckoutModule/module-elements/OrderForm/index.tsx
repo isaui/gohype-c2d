@@ -126,7 +126,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ticketName="", ticketId="", ticket
     if(totalPrice <= 0){
       const supabase = createClient()
       const {data:userRes, error} = await supabase.auth.getUser()
-      alert("DATA USER?")
+    //  alert("DATA USER?")
       if(error){
         console.log(error)
       }

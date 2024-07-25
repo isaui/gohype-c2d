@@ -38,10 +38,14 @@ const Navbar: React.FC<NavbarProps> = ({ variant = 'FIXED', isAuthRequired = fal
   };
 
   const handleLogoutClick = async () => {
-    await supabase.auth.signOut();
+    try {
+      const res = await supabase.auth.signOut();
     setIsAuthenticated(false);
     setIsAdmin(false);
-    router.refresh()
+    window.location.href = window.location.href
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   const checkAndInsertUser = async (user: any): Promise<{
@@ -94,8 +98,10 @@ const Navbar: React.FC<NavbarProps> = ({ variant = 'FIXED', isAuthRequired = fal
     let previousSession: any = null;
 
     const handleAuthChange = async (event: string, session: Session | null) => {
+    //  console.log("ANJIRRRRR OMAGAAAA")
       if (isMounted) {
         setIsAuthenticated(!!session);
+      //  console.log("gw mounted")
 
         if (isAuthRequired && !session) {
           setIsAuthDialogOpen(true);
@@ -103,7 +109,9 @@ const Navbar: React.FC<NavbarProps> = ({ variant = 'FIXED', isAuthRequired = fal
           setIsAuthDialogOpen(false);
 
           if (event === 'SIGNED_IN' && session && !previousSession) {
+            console.log("OMAIWAA")
             const dbUser = await checkAndInsertUser(session.user);
+            console.log("elje")
             if (dbUser) {
               toast({ description: "Welcome, " + (dbUser.display_name || dbUser.email) + "!" });
               if (!dbUser.phone_num) {

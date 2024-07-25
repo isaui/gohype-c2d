@@ -162,9 +162,9 @@ const Navbar: React.FC<NavbarProps> = ({ variant = 'FIXED', isAuthRequired = fal
       <AuthDialog isOpen={isAuthDialogOpen} setIsOpen={setIsAuthDialogOpen} />
       <AddPhoneDialog isOpen={isAddPhoneDialogOpen} setIsOpen={setIsAddPhoneDialogOpen} onAddPhone={handleAddPhoneNum} />
       <div className='flex items-center w-full max-w-7xl mx-auto'>
-        <div>
-          <img src="/logo.svg" className="w-16 md:w-24 h-auto" alt="Logo" />
-        </div>
+        <a href='https://gohype.id'>
+          <img src="/logo.svg" className="w-20 md:w-24 h-auto" alt="Logo" />
+        </a>
         <div className="ml-auto md:hidden">
           <Sheet>
             <SheetTrigger><Menu /></SheetTrigger>

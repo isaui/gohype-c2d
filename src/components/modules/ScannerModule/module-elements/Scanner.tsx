@@ -1,19 +1,27 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import QrScanner from 'qr-scanner';
+import debounce from 'lodash/debounce';
 
+type ScannerProps = {
+    onSend: (qrString: string) => void
+    isInTransition: boolean
+}
 
-const Scanner: React.FC = () => {
+const Scanner: React.FC<ScannerProps> = ({onSend, isInTransition}) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [qrScanner, setQrScanner] = useState<QrScanner | null>(null);
-  
+
+  const debouncedOnSend = debounce((qrString: string) => {
+    if (!isInTransition) {
+      onSend(qrString);
+    }
+  }, 2000, { leading: true, trailing: false });
 
   useEffect(() => {
     if (typeof window !== 'undefined' && videoRef.current) {
       const scanner = new QrScanner(
         videoRef.current,
-        (result: QrScanner.ScanResult) => {
-          console.log(result.data)
-        },
+        (result: QrScanner.ScanResult) => debouncedOnSend(result.data),
         {
           highlightScanRegion: true,
           highlightCodeOutline: true,

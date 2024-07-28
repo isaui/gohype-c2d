@@ -7,6 +7,8 @@ import { createClient } from '@/utils/supabase/client';
 import { useToast } from '@/components/ui/use-toast';
 import ResultSection from './sections/ResultSection';
 import { TicketHolderWithTicketOrderData } from './interface';
+import { useRouter } from 'next/navigation';
+import { ArrowLeft } from 'lucide-react';
 
 export const ScannerModule: React.FC = () => {
 
@@ -14,6 +16,8 @@ export const ScannerModule: React.FC = () => {
   const [currentTicketHolder, setCurrentTicketHolder] = useState<null | TicketHolderWithTicketOrderData > (null)
   const isInTransitionQRRef = useRef<boolean>(false)
   const {toast} = useToast()
+
+  const router = useRouter()
 
   const getTicketHolderDataById = async (id: string)=> {
     const supabase = createClient()
@@ -63,10 +67,15 @@ export const ScannerModule: React.FC = () => {
       onSend={handleNewQrString}
       />
     </div>
-    <div className='w-full h-32 bg-black opacity-40 mb-auto'></div>
+    <div className='w-full h-32 bg-black opacity-40 mb-auto mt-12'></div>
     <div className='w-full h-32 bg-black opacity-40 mt-auto'></div>
+    <div className='px-2 py-4 flex items-center bg-white gap-x-2 w-full border-b-2 border-gray-200 mb-auto'>
+    <ArrowLeft onClick={()=> router.back()}/>
+    <h1>Back to Scan Again</h1>
+    </div>
     </Stack>
   }
+
   return (
     <div className="flex flex-col gap-10 items-center h-screen md:px-4">
       {displayState == 'QR' && generateScannerDisplay()}

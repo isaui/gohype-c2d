@@ -1,17 +1,22 @@
-import { Card, CardContent } from "@/components/ui/card"
-import ContentSection from "./sections/ContentSection"
-import HeaderSection from "./sections/HeaderSection"
-import ScannerBottomNavbar from "@/components/shared/ScannerBottomNavbar"
-import LoginSection from "./sections/LoginSection"
-import Navbar from "@/components/shared/Navbar"
-import { Lock } from "lucide-react"
-import { createClient } from "@/utils/supabase/server"
 
-type VisitorProps = {
+
+import Navbar from '@/components/shared/Navbar';
+import ScannerBottomNavbar from '@/components/shared/ScannerBottomNavbar';
+import { Button } from '@/components/ui/button';
+import { createClient } from '@/utils/supabase/server';
+import { QrCode } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
+import LoginSection from './sections/LoginSection';
+import { Lock } from "lucide-react"
+
+type ScanModuleProps = {
     event: string
 }
 
-const VisitorModule: React.FC<VisitorProps> = async ({event}) => {
+export const ScanModule: React.FC<ScanModuleProps> = async ({event}) => {
+
     let isAdminAndAuthenticated = false
     const supabase = createClient()
     const userResponse = await supabase.auth.getUser()
@@ -42,18 +47,25 @@ const VisitorModule: React.FC<VisitorProps> = async ({event}) => {
         )
     }
 
-    return <div className="flex flex-col w-screen min-h-screen bg-background pr-4">
-        <Card className="w-full bg-white mx-auto  rounded-none max-w-4xl border-0 md:border 
-        shadow-none">
-        <CardContent className="p-0 md:min-h-screen">
-            <HeaderSection/>
-            <div className="flex flex-col w-full md:py-4 md:px-4">
-            <ContentSection/>
-            </div>
-        </CardContent>
-        </Card>
-        <ScannerBottomNavbar activeSection={"visitors"} eventPath={event}/>
+  return (
+    <div className="w-full max-w-4xl flex flex-col gap-4 mx-auto bg-white border-gray-200 border items-center h-screen">
+      <div className="relative w-full max-w-screen-sm h-[80vh] rounded-2xl overflow-hidden ">
+        <Image
+          src={
+            'https://www.shutterstock.com/image-vector/qr-code-scanning-icon-smartphone-600nw-1968550138.jpg'
+          }
+          alt="Cover Image"
+          fill
+          className="object-contain bg-white"
+        />
+      </div>
+      <Link href={`/scanner`}>
+        <Button className="flex items-center gap-2">
+          <span>Scan Ticket</span>
+          <QrCode />
+        </Button>
+      </Link>
+      <ScannerBottomNavbar eventPath={event} activeSection={"scanner"}/>
     </div>
-}
-
-export default VisitorModule
+  );
+};

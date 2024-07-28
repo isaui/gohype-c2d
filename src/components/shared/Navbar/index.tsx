@@ -93,10 +93,12 @@ const Navbar: React.FC<NavbarProps> = ({ variant = 'FIXED', isAuthRequired = fal
   };
 
   useEffect(() => {
+   // console.log("YOOO>>>")
     let isMounted = true;
     let previousSession: Session | null = null;
     const handleAuthChange = async (event: string, session: Session | null) => {
       if (!isMounted) return;
+     // console.log("YOOOO>>>2")
       setIsAuthenticated(!!session);
       if (isAuthRequired && !session) {
         setIsAuthDialogOpen(true);
@@ -115,6 +117,7 @@ const Navbar: React.FC<NavbarProps> = ({ variant = 'FIXED', isAuthRequired = fal
             toast({ description: "An error occurred while processing your account.", variant: "destructive" });
           }
         }
+     //   console.log("YOOO>>>3 eventName: ", event)
       }
       previousSession = session;
     };

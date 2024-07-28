@@ -60,7 +60,7 @@ export const ScannerModule: React.FC = () => {
 
 
   const generateScannerDisplay = () => {
-    return <Stack className='max-w-screen-sm'> 
+    return <Stack className='max-w-4xl border border-gray-200'> 
     <div className="w-full  h-full flex items-center justify-center ">
       <Scanner
       isInTransition={isInTransitionQRRef.current}
@@ -71,7 +71,7 @@ export const ScannerModule: React.FC = () => {
     <div className='w-full h-32 bg-black opacity-40 mt-auto'></div>
     <div className='px-2 py-4 flex items-center bg-white gap-x-2 w-full border-b-2 border-gray-200 mb-auto'>
     <ArrowLeft onClick={()=> router.back()}/>
-    <h1>Back to Scan Again</h1>
+    <h1>Back</h1>
     </div>
     </Stack>
   }

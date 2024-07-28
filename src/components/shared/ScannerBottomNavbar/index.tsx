@@ -8,14 +8,15 @@ type Section = 'scanner' | 'visitors';
 
 interface BottomNavbarProps {
   activeSection: Section;
+  eventPath: string
 }
 
-const ScannerBottomNavbar: React.FC<BottomNavbarProps> = ({ activeSection }) => {
+const ScannerBottomNavbar: React.FC<BottomNavbarProps> = ({ activeSection, eventPath }) => {
   return (
    <div className="fixed bottom-0 left-0 right-0 flex justify-center items-center">
-     <div className=" bg-white  md:ml-[1.06rem] border border-gray-200 md:max-w-4xl w-full flex ">
+     <div className=" bg-white border border-gray-200 md:max-w-4xl w-full flex ">
       <div className="flex justify-around items-center h-16 w-full">
-        <Link href="/scanner" passHref className="w-1/2">
+        <Link href={`/${eventPath}/dashboard/scan`} passHref className="w-1/2">
           <div
             className={`flex flex-col items-center w-full ${activeSection === 'scanner' ? 'text-blue' : 'text-gray-500'}`}
           >
@@ -26,7 +27,7 @@ const ScannerBottomNavbar: React.FC<BottomNavbarProps> = ({ activeSection }) => 
             <span className="text-xs mt-1">Scanner</span>
           </div>
         </Link>
-        <Link href="/visitors" passHref className="w-1/2">
+        <Link href={`/${eventPath}/dashboard/visitor`} passHref className="w-1/2">
 
             <div className={`flex flex-col items-center w-full ${activeSection === 'visitors' ? ' text-blue' : 'text-gray-500'}`}>
             {activeSection === 'visitors'? 

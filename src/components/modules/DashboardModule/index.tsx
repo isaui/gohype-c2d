@@ -7,6 +7,8 @@ import LoginSection from "./sections/LoginSection"
 import { Lock } from "lucide-react"
 import SummarySection from "./sections/SummarySection"
 import SearchServerSection from "./sections/SearchServerSection"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 type DashboardModuleProps = {
     eventPath?: string
@@ -50,7 +52,6 @@ const DashboardModule: React.FC<DashboardModuleProps> = async ({eventPath, secti
         )
     }
 
-
     return (
         <div className="flex flex-col w-screen min-h-screen bg-background items-center pt-16 pb-10">
             <Navbar isAuthRequired={true}/>
@@ -61,6 +62,14 @@ const DashboardModule: React.FC<DashboardModuleProps> = async ({eventPath, secti
                 <OrderSection search={search} ticketPath={eventPath} page={pageNumber}/> : 
                 <TicketSection ticketPath={eventPath} page={pageNumber}/>
             }
+            <div className="grid w-full text-center justify-center gap-x-4 items-center">
+              <Link href={`/${eventPath}/dashboard/scan`}>
+              <Button>Scan</Button>
+              </Link>
+              <Link href={`/${eventPath}/dashboard/visitor`}>
+              <Button>Visitor</Button>
+              </Link>
+            </div>
         </div>
     )
 }

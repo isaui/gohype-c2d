@@ -48,9 +48,9 @@ const ResultSection: React.FC<ResultSectionProps> = ({onBack, ticketHolder, onRe
     }
 
     return <div className="w-screen h-screen flex items-center justify-center">
-       <div className="w-full max-w-screen-sm bg-white h-full flex flex-col justify-start px-2 pt-16 pb-20">
+       <div className="w-full max-w-4xl bg-white h-full flex flex-col justify-start px-2 pt-16 pb-20 border border-gray-200">
          <div className="px-2 py-4 flex items-center bg-white gap-x-2 w-full border-b-2 border-gray-200
-         max-w-screen-sm  fixed top-0 left-1/2 transform -translate-x-1/2 z-20">
+         max-w-4xl  fixed top-0 left-1/2 transform -translate-x-1/2 z-20">
             <ArrowLeft onClick={onBack}/>
             <h1>Back to Scan Again</h1>
          </div>
@@ -87,7 +87,7 @@ const ResultSection: React.FC<ResultSectionProps> = ({onBack, ticketHolder, onRe
          </div>
         {
             section == 'BEFORE_ACTION' &&  <div className="px-2 pt-4 pb-8 flex items-center bg-white gap-x-2 w-full  border-gray-200
-            max-w-screen-sm  fixed bottom-0 left-1/2 transform -translate-x-1/2 z-20">
+            max-w-4xl  fixed bottom-0 left-1/2 transform -translate-x-1/2 z-20">
                <Badge onClick={handleUpdateStatus} variant={ticketHolder.status == 'CHECKED_IN'? 'danger' : 'success'} className="w-full rounded-md py-6 text-center">
                    <div className=" w-full text-center">
                    {ticketHolder.status == 'CHECKED_IN' ? 'Check Out' : 'Check In'}
